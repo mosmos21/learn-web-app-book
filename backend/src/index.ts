@@ -1,20 +1,19 @@
-import express, { Express } from "express";
-import { Task } from "@app/schema";
+import express from "express";
+import session from "express-session";
+import { router } from "~/handlers";
 
-const app: Express = express();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: process.env.SESSION_SECRET || "session_secret",
+  name: "_app"
+}));
 
-app.listen(3001, () => {
-  console.log("Start on port 3001");
-});
+app.use("/api/v1", router);
 
-const tasks: Task[] = [
-  { id: 1, content: "頑張る" },
-  { id: 2, content: "頑張らない" }
-];
-
-app.get("/api/v1/tasks", (_, res) => {
-  res.send(JSON.stringify(tasks));
+const port = Number(process.env.PORT || 3001);
+app.listen(port, () => {
+  console.log(`listen on ${port}`);
 });
