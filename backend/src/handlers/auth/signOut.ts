@@ -1,5 +1,6 @@
-import { RequestHandler } from "express";
+import { LoginRequiredRequestHandler } from "~/@types";
 
-export const signOut: RequestHandler = (req, res) => {
+export const signOut: LoginRequiredRequestHandler = (req, res) => {
+  delete req.session.userId;
   res.send();
 }

@@ -1,5 +1,5 @@
 import { fetcher } from "~/api/fetcher";
-import { User } from "@app/schema";
+import { User } from "~/util/schema";
 
 type RequestBody = {
   loginId: string,

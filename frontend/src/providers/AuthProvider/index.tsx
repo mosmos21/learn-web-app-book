@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "@app/schema";
+import { User } from "~/util/schema";
 import { getAuthMe } from "~/api/v1/auth/me";
 import { postSignUp } from "~/api/v1/auth/sign_up";
 import { postSignIn } from "~/api/v1/auth/sign_in";

@@ -1,7 +1,5 @@
-import { RequestHandler } from "express";
+import { LoginRequiredRequestHandler } from "~/@types";
 
-export const me: RequestHandler = (req, res) => {
-  // @ts-ignore
-  console.log(req.session.userId);
-  res.status(401).send();
+export const me: LoginRequiredRequestHandler = (_, res, user) => {
+  res.json(user);
 }

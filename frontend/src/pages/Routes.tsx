@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 import { SignInPage } from "~/pages/auth/sign_in";
-import { TopPage } from "~/pages/index";
 import { SignUpPage } from "~/pages/auth/sign_up";
+import { TopPage } from "~/pages/top";
 
 export const Routes = () => (
   <BrowserRouter>

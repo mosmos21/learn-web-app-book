@@ -7,5 +7,5 @@ export const Template = () => {
 
   return (
     <SignUpForm onSubmit={handleSubmitForm} />
-  )
+  );
 }

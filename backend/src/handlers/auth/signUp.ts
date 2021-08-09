@@ -9,7 +9,7 @@ export const signUp: RequestHandler = async (req, res) => {
   const result = await registerUser({ loginId, name, password });
   if (result.ok) {
     req.session.userId = result.data.id;
-    res.status(201).json(result.data);
+    res.status(201).json({ user: { name: result.data.name }});
   } else {
     res.status(401).json({ error: result.error });
   }
