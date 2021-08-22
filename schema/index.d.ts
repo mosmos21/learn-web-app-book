@@ -4,11 +4,13 @@ export namespace SchemaModel {
     name: string
   }
 
+  type TaskStatus = "NEW" | "DOING" | "COMPLETED"
+
   type Task = {
     id: number
     title: string
     content: string | null
-    status: "NEW" | "DOING" | "COMPLETED"
+    status: TaskStatus
     category: Category
   }
 
@@ -18,7 +20,9 @@ export namespace SchemaModel {
 }
 
 export namespace Schema {
-  type ErrorResponse = { error: string }
+  type ErrorResponse = {
+    message: string
+  }
 
   // GET /api/v1/categories
   type GetCategories = {
@@ -28,7 +32,7 @@ export namespace Schema {
   }
 
   // POST /api/v1/categories
-  type PostCategories = {
+  type PostCategory = {
     requestBody: {
       name: string
     }
@@ -48,7 +52,7 @@ export namespace Schema {
   }
 
   // POST /api/v1/tasks
-  type PostTasks = {
+  type PostTask = {
     requestBody: {
       title: string
       content?: string

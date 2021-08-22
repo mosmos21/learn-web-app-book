@@ -5,21 +5,25 @@ import {
   Route
 } from "react-router-dom";
 
-import { SignInPage } from "~/pages/auth/sign_in";
-import { SignUpPage } from "~/pages/auth/sign_up";
 import { TopPage } from "~/pages/top";
+import { SignInPage } from "~/pages/auth/signIn";
+import { SignUpPage } from "~/pages/auth/signUp";
+import { CategoriesPage } from "~/pages/categories";
 
 export const Routes = () => (
   <BrowserRouter>
     <Switch>
+      <Route path="/" exact>
+        <TopPage />
+      </Route>
       <Route path="/auth/sign_in" exact>
         <SignInPage />
       </Route>
       <Route path="/auth/sign_up" exact>
         <SignUpPage />
       </Route>
-      <Route path="/" exact>
-        <TopPage />
+      <Route path="/categories" exact>
+        <CategoriesPage />
       </Route>
     </Switch>
   </BrowserRouter>

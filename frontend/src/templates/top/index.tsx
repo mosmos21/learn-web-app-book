@@ -1,8 +1,8 @@
 import React from "react";
-import { User } from "~/util/schema";
+import { SchemaModel } from "@app/schema";
 
 type Props = {
-  currentUser: User;
+  currentUser: SchemaModel.User;
 }
 
 export const Template = ({ currentUser }: Props) => {

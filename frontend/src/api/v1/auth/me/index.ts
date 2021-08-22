@@ -1,4 +1,4 @@
 import { fetcher } from "~/api/fetcher";
-import { User } from "~/util/schema";
+import { Schema } from "@app/schema";
 
-export const getAuthMe = () => fetcher<User>()("/api/v1/auth/me");
+export const getAuthMe = () => fetcher<Schema.GetAuthMe["response"]>()("/api/v1/auth/me");

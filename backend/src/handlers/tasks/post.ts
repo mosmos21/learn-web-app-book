@@ -5,8 +5,8 @@ import { Schema } from "@app/schema";
 
 export const postHandler: LoginRequiredRequestHandler<
   {},
-  Schema.PostTasks["response"],
-  Schema.PostTasks["requestBody"]
+  Schema.PostTask["response"],
+  Schema.PostTask["requestBody"]
 > = async (req, res, user) => {
   const result = await addTask({ user, ...req.body });
 

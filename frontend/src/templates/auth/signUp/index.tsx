@@ -1,6 +1,6 @@
 import React from "react";
-import { SignUpForm } from "~/components/molecules/SignUpForm";
-import { useHook } from "~/templates/auth/sign_up/useHook";
+import { SignUpForm } from "~/containers/SignUpForm";
+import { useHook } from "~/templates/auth/signUp/useHook";
 
 export const Template = () => {
   const { handleSubmitForm } = useHook();

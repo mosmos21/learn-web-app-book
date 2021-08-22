@@ -1,14 +1,13 @@
 import React from "react";
-import { User } from "~/util/schema";
 import { getAuthMe } from "~/api/v1/auth/me";
-import { postSignUp } from "~/api/v1/auth/sign_up";
-import { postSignIn } from "~/api/v1/auth/sign_in";
-import { deleteSignOut } from "~/api/v1/auth/sign_out";
+import { postSignUp } from "~/api/v1/auth/signUp";
+import { postSignIn } from "~/api/v1/auth/signIn";
+import { deleteSignOut } from "~/api/v1/auth/signOut";
+import { SchemaModel, Schema } from "@app/schema";
 
-type AuthProps = {
-  loginId: string,
-  password: string
-}
+export type SignUpProps = Schema.PostAuthSignUp["requestBody"];
+
+export type SignInProps = Schema.PostAuthSignIn["requestBody"];
 
 type State = {
   isLoading: true
@@ -18,17 +17,17 @@ type State = {
 } | {
   isLoading: false,
   isSignedIn: true,
-  currentUser: User
+  currentUser: SchemaModel.User
 }
 
 type Context
   = {
     isSignedIn: false,
-    signIn: (props: AuthProps) => Promise<void>;
-    signUp: (props: AuthProps) => Promise<void>;
+    signIn: (props: SignInProps) => Promise<void>;
+    signUp: (props: SignUpProps) => Promise<void>;
   } | {
     isSignedIn: true,
-    currentUser: User,
+    currentUser: SchemaModel.User,
     signOut: () => Promise<void>;
   }
 
@@ -43,8 +42,8 @@ const AuthContext = React.createContext<Context>(defaultContext);
 const useHook = (): { isLoading: true } | { isLoading: false } & Context => {
   const [state, setState] = React.useState<State>({ isLoading: true });
 
-  const signIn = React.useCallback((props: AuthProps) =>
-    postSignIn(props).then((currentUser) => {
+  const signIn = React.useCallback((props: SignInProps) =>
+    postSignIn(props).then(({ user: currentUser }) => {
       setState({
         isLoading: false,
         isSignedIn: true,
@@ -53,8 +52,8 @@ const useHook = (): { isLoading: true } | { isLoading: false } & Context => {
     }),
     []);
 
-  const signUp = React.useCallback((props: AuthProps) =>
-    postSignUp(props).then((currentUser) => {
+  const signUp = React.useCallback((props: SignUpProps) =>
+    postSignUp(props).then(({ user: currentUser }) => {
       setState({
         isLoading: false,
         isSignedIn: true,
@@ -73,7 +72,7 @@ const useHook = (): { isLoading: true } | { isLoading: false } & Context => {
     []);
 
   React.useEffect(() => {
-    getAuthMe().then((currentUser) => {
+    getAuthMe().then(({ user: currentUser }) => {
       setState({
         isLoading: false,
         isSignedIn: true,

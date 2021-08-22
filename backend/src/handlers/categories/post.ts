@@ -5,8 +5,8 @@ import { serializeCategory } from "~/handlers/categories/serializer";
 
 export const postHandler: LoginRequiredRequestHandler<
   {},
-  Schema.PostCategories["response"],
-  Schema.PostCategories["requestBody"]
+  Schema.PostCategory["response"],
+  Schema.PostCategory["requestBody"]
 > = async (req, res, user) => {
   const { name } = req.body;
   const category = await addCategory({ user, name });

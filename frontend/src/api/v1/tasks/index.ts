@@ -1,21 +1,11 @@
 import { fetcher } from "~/api/fetcher";
-import { Task } from "~/util/schema";
-
-type Response = {
-  tasks: Task[]
-}
+import { Schema } from "@app/schema";
 
 export const getTasks = (categoryId: string) =>
-  fetcher<Response>()(`/api/v1/tasks?categoryId=${categoryId}`);
+  fetcher<Schema.GetTasks["response"]>()(`/api/v1/tasks?categoryId=${categoryId}`);
 
-type RequestBody = {
-  title: string;
-  content?: string;
-  categoryName: string;
-}
-
-export const postTask = (body: RequestBody) =>
-  fetcher<Task>()(
+export const postTask = (body: Schema.PostTask["requestBody"]) =>
+  fetcher<Schema.PostTask["response"]>()(
     "/api/v1/tasks",
     {
       method: "POST",
