@@ -13,17 +13,13 @@ export const loginUser = async ({
   loginId,
   password
 }: Props): Promise<Result<User & { account: Account | null }>> => {
-  const account = await client.account.findFirst({ where: { loginId } });
+  const account = await client.account.findFirst({ where: { loginId }, include: { user: true } });
   if (!account) return error;
 
   const equal = await bcrypt.compare(password, account.encryptedPassword);
   if (!equal) return error;
 
-  const user = await client.user.findFirst({
-    where: { id: account.userId },
-    include: { account: true }
-  });
-  if (!user) return error;
+  const { user, ..._account } = account;
 
-  return { ok: true, data: user };
+  return { ok: true, data: { ...user, account: _account } };
 }

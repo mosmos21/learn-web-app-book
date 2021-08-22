@@ -9,7 +9,10 @@ export const getHandler: LoginRequiredRequestHandler<
   {},
   Schema.GetTasks["query"]
 > = async (req, res, user) => {
-  const result = await listTasks({ user, categoryId: Number(req.query.categoryId) });
+  const result = await listTasks({
+    user,
+    categoryId: req.query.categoryId === undefined ? undefined : Number(req.query.categoryId)
+  });
 
   if (result.ok) {
     res.json({ tasks: serializeTasks(result.data) });

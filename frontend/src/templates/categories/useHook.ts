@@ -16,7 +16,7 @@ export const useHook = () => {
     getCategories().then(({ categories }) => {
       setCategories(categories);
     });
-  }, [getCategories]);
+  }, []);
 
   return [
     { categories },

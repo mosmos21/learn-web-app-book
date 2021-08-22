@@ -4,10 +4,10 @@ import { useAuthContext } from "~/providers/AuthProvider";
 import { Redirect } from "react-router-dom";
 
 export const TopPage = () => {
-  const authContext = useAuthContext();
-  if (!authContext.isSignedIn) return <Redirect to="/auth/sign_in" />;
+  const { isSignedIn } = useAuthContext();
+  if (!isSignedIn) return <Redirect to="/auth/sign_in" />;
 
   return (
-    <Template currentUser={authContext.currentUser} />
+    <Template />
   );
 }

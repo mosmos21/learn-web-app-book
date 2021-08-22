@@ -1,14 +1,15 @@
 import React from "react";
-import { SchemaModel } from "@app/schema";
+import { useHook } from "~/templates/top/useHook";
+import { Form } from "~/templates/top/Form";
 
-type Props = {
-  currentUser: SchemaModel.User;
-}
+export const Template = () => {
+  const [
+    { categories, tasks }
+  ] = useHook();
 
-export const Template = ({ currentUser }: Props) => {
   return (
     <div>
-      {currentUser.name}
+      <Form categories={categories} onSubmit={() => {}}/>
     </div>
   )
 }

@@ -44,7 +44,7 @@ export namespace Schema {
   // GET /api/v1/tasks
   type GetTasks = {
     query: {
-      categoryId: string
+      categoryId?: string
     }
     response: {
       tasks: SchemaModel.Task[]
