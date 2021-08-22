@@ -21,9 +21,39 @@ model Account {
 }
 
 model User {
+  id         Int        @default(autoincrement()) @id
+  name       String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  account    Account?
+  categories Category[]
+}
+
+model Category {
   id        Int      @default(autoincrement()) @id
-  name      String?
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Account   Account?
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  tasks     Task[]
+
+  @@unique([userId, name])
+}
+
+model Task {
+  id         Int        @default(autoincrement()) @id
+  categoryId Int
+  category   Category   @relation(fields: [categoryId], references: [id])
+  title      String
+  content    String?
+  status     TaskStatus @default(NEW)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+enum TaskStatus {
+  NEW
+  DOING
+  COMPLETED
 }

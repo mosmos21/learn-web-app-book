@@ -7,7 +7,7 @@ const defaultRequestInit: RequestInit = {
 
 export const fetcher =
   <T>(customRequestInit: RequestInit = {}) =>
-    (input: RequestInfo, requestInit: RequestInit = {}) =>
+    (input: RequestInfo, requestInit: RequestInit = {}): Promise<T> =>
       fetch(input, {
         ...defaultRequestInit,
         ...requestInit,
@@ -21,9 +21,7 @@ export const fetcher =
         if (!res.ok) throw res;
         return res.text();
       }).then((text) => {
-        if (text.length === 0) return;
-
-        return JSON.parse(text)
+        return JSON.parse(text || "{}") as unknown as T;
       }).catch((err: unknown) => {
         throw err;
       });

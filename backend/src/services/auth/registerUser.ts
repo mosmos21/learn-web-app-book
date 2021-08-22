@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { client, User } from "~/util/prismaClient";
+import { client, User, Account } from "~/util/prismaClient";
 import { Result } from "~/util/result";
 
 type Props = {
@@ -12,7 +12,7 @@ export const registerUser = async ({
   loginId,
   name,
   password
-}: Props): Promise<Result<User>> => {
+}: Props): Promise<Result<User & { account: Account | null }>> => {
   const account = await client.account.findFirst({ where: { loginId } });
   if (account) return { ok: false, error: "Account exists." };
 
@@ -20,9 +20,12 @@ export const registerUser = async ({
   const user = await client.user.create({
     data: {
       name,
-      Account: {
+      account: {
         create: { loginId, encryptedPassword }
       }
+    },
+    include: {
+      account: true
     }
   });
 
