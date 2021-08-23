@@ -1,8 +1,8 @@
 import React from "react";
 import { SchemaModel, Schema } from "@app/schema";
-import { TextField, Select, MenuItem } from "@material-ui/core";
+import { TextField, Select, MenuItem, Button } from "@material-ui/core";
 
-type FormData = Schema.PostTask["requestBody"];
+export type FormData = Schema.PostTask["requestBody"];
 
 type Props = {
   categories: SchemaModel.Category[];
@@ -15,9 +15,8 @@ export const Form = ({ categories, onSubmit }: Props) => {
     categoryName: ""
   });
 
-  const handleChangeCategory = React.useCallback((event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    console.log(event.target);
-    setFormData({ ...formData, categoryName: event.target.name || "" });
+  const handleChangeCategory = React.useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
+    setFormData({ ...formData, categoryName: String(event.target.value) });
   }, [formData]);
 
   const handleChangeTitle = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +26,7 @@ export const Form = ({ categories, onSubmit }: Props) => {
   const handleSubmitForm = React.useCallback((event: React.FormEvent) => {
     event.preventDefault();
     onSubmit(formData);
-  }, []);
+  }, [formData]);
 
   return (
     <form onSubmit={handleSubmitForm}>
@@ -51,6 +50,14 @@ export const Form = ({ categories, onSubmit }: Props) => {
         value={formData.title}
         onChange={handleChangeTitle}
       />
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+      >
+        Add
+      </Button>
     </form>
   );
 }

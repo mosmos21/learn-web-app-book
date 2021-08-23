@@ -1,9 +1,11 @@
 import express from "express";
+import morgan from "morgan";
 import session from "express-session";
 import { router } from "~/handlers";
 
 const app = express();
 
+app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
