@@ -1,10 +1,13 @@
-import { client, User, Task, Category } from "~/util/prismaClient";
-import { Result } from "~/util/result";
+import { Model } from "~/@types";
+import TaskWithCategory = Model.TaskWithCategory;
+import { withTransaction } from "~/util/pool";
+import { insertTask, findById } from "~/repositories/taskRepository";
+import { findByUserIdAndName, insertCategory } from "~/repositories/categoryRepository";
 
 type Props = {
-  user: User,
+  user: Model.User,
   title: string,
-  content?: string,
+  content: string | null,
   categoryName: string,
 }
 
@@ -13,34 +16,25 @@ export const addTask = async ({
   title,
   content,
   categoryName
-}: Props): Promise<Result<Task & { category: Category }>> => {
-  if (!await client.category.findFirst({ where: { userId: user.id, name: categoryName }})) {
-      return { ok: false, error: "Invalid category id." }
+}: Props): Promise<TaskWithCategory> => withTransaction(async () => {
+  const category = await findOrInsertCategory(user.id, categoryName);
+
+  const { id } = await insertTask({ categoryId: category.id, title, content });
+
+  const task = await findById(id);
+  if (!task) {
+    throw new Error();
   }
 
-  const task = await client.task.create({
-    data: {
-      title,
-      content,
-      category: {
-        connectOrCreate: {
-          where: {
-            userId_name: {
-              userId: user.id,
-              name: categoryName
-            }
-            },
-          create: {
-            userId: user.id,
-            name: categoryName
-          }
-        }
-      }
-    },
-    include: {
-      category: true
-    }
-  });
+  return task;
+})
 
-  return { ok: true, data: task };
+const findOrInsertCategory = async (userId: number, name: string): Promise<Model.Category> => {
+  const category = await findByUserIdAndName(userId, name);
+  if (category) {
+    return category;
+  }
+
+  return await insertCategory({ userId, name });
 }
+

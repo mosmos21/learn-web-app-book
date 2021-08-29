@@ -1,18 +1,18 @@
-import { client, Category, User } from "~/util/prismaClient";
+import { Model } from "~/@types";
+import { existsUserIdAndName, insertCategory } from "~/repositories/categoryRepository";
 
 type Props = {
-  user: User,
+  user: Model.User,
   name: string
 }
 
 export const addCategory = async ({
   user,
   name
-}: Props): Promise<Category> => {
-  return await client.category.create({
-    data: {
-      userId: user.id,
-      name,
-    }
-  });
+}: Props): Promise<Model.Category> => {
+  if (await existsUserIdAndName(user.id, name)) {
+    throw new Error();
+  }
+
+  return await insertCategory({ userId: user.id, name });
 }

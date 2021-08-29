@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
-import { client, User, Account } from "~/util/prismaClient";
-import { Result } from "~/util/result";
+import { withTransaction } from "~/util/pool";
+import { Model } from "~/@types";
+import { existsLoginId, insertAccount } from "~/repositories/accountRepository";
+import { insertUser } from "~/repositories/userRepository";
 
 type Props = {
   loginId: string;
@@ -12,22 +14,17 @@ export const registerUser = async ({
   loginId,
   name,
   password
-}: Props): Promise<Result<User & { account: Account | null }>> => {
-  const account = await client.account.findFirst({ where: { loginId } });
-  if (account) return { ok: false, error: "Account exists." };
+}: Props): Promise<Model.User> => {
+  if (await existsLoginId(loginId)) {
+    throw new Error();
+  }
 
   const encryptedPassword = await bcrypt.hash(password, 10);
-  const user = await client.user.create({
-    data: {
-      name,
-      account: {
-        create: { loginId, encryptedPassword }
-      }
-    },
-    include: {
-      account: true
-    }
-  });
 
-  return { ok: true, data: user }
+  return await withTransaction(async () => {
+    const user = await insertUser({ name });
+    await insertAccount({ loginId, userId: user.id, encryptedPassword });
+
+    return user;
+  });
 }

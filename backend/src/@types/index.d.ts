@@ -22,3 +22,37 @@ export type LoginRequiredRequestHandler<
     currentUser: User & { account: Account | null },
     next: NextFunction,
   ) => void;
+
+export namespace Model {
+  type User = {
+    id: number;
+    name: string;
+  }
+
+  type Account = {
+    id: number;
+    userId: User["id"];
+    loginId: string;
+    encryptedPassword: string;
+  }
+
+  type Category = {
+    id: number;
+    userId: User["id"];
+    name: string;
+  }
+
+  type TaskStatus = "NEW" | "DOING" | "COMPLETED";
+
+  type Task = {
+    id: number;
+    categoryId: number;
+    title: string;
+    content: string | null;
+    status: TaskStatus;
+  }
+
+  type TaskWithCategory = Omit<Task, "categoryId"> & {
+    category: Omit<Category, "userId">
+  }
+}

@@ -1,25 +1,31 @@
 import bcrypt from "bcrypt";
-import { Result } from "~/util/result";
-import { client, User, Account } from "~/util/prismaClient";
+import { Model } from "~/@types";
+import { findByLoginId } from "~/repositories/accountRepository";
+import { findById } from "~/repositories/userRepository";
 
 type Props = {
   loginId: string;
   password: string;
 }
 
-const error = { ok: false, error: "loginId or password invalid." } as const;
-
 export const loginUser = async ({
   loginId,
   password
-}: Props): Promise<Result<User & { account: Account | null }>> => {
-  const account = await client.account.findFirst({ where: { loginId }, include: { user: true } });
-  if (!account) return error;
+}: Props): Promise<Model.User> => {
+  const account = await findByLoginId(loginId);
+  if (!account) {
+    throw new Error();
+  }
 
   const equal = await bcrypt.compare(password, account.encryptedPassword);
-  if (!equal) return error;
+  if (!equal) {
+    throw new Error();
+  }
 
-  const { user, ..._account } = account;
+  const user = await findById(account.userId);
+  if (user === null) {
+    throw new Error();
+  }
 
-  return { ok: true, data: { ...user, account: _account } };
+  return user;
 }

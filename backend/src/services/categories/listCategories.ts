@@ -1,9 +1,10 @@
-import { client, Category, User } from "~/util/prismaClient";
+import { Model } from "~/@types";
+import { whereByUserId } from "~/repositories/categoryRepository";
 
 type Props = {
-  user: User
+  user: Model.User
 }
 
-export const listCategories = async ({ user }: Props): Promise<Category[]> => {
-  return await client.category.findMany({ where: { userId: user.id }});
+export const listCategories = async ({ user }: Props): Promise<Model.Category[]> => {
+  return await whereByUserId(user.id);
 }

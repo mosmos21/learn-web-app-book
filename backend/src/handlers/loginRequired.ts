@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { LoginRequiredRequestHandler } from "~/@types";
-import { client } from "~/util/prismaClient";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
+import { findById } from "~/repositories/userRepository";
 
 export const loginRequired = <
   P = ParamsDictionary,
@@ -18,10 +18,7 @@ export const loginRequired = <
       return;
     }
 
-    const user = await client.user.findFirst({
-      where: { id },
-      include: { account: true }
-    });
+    const user = await findById(id);
     if (!user) {
       res.status(401).send();
       return;
