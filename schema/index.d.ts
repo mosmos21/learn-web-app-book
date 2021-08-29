@@ -32,7 +32,7 @@ export namespace Schema {
   }
 
   // POST /api/v1/categories
-  type PostCategory = {
+  type PostCategories = {
     requestBody: {
       name: string
     }
@@ -52,10 +52,10 @@ export namespace Schema {
   }
 
   // POST /api/v1/tasks
-  type PostTask = {
+  type PostTasks = {
     requestBody: {
       title: string
-      content?: string
+      content: string | null
       categoryName: string
     }
     response: {
