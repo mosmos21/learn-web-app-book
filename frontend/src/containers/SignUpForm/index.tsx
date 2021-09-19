@@ -1,5 +1,5 @@
-import React from "react";
 import { TextField, Button, Box, FormControl, InputLabel, colors } from "@mui/material";
+import React from "react";
 import { SignUpProps } from "~/providers/AuthProvider";
 
 export type FormData = SignUpProps;

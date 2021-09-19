@@ -1,5 +1,5 @@
-import React from "react";
 import { SchemaModel } from "@app/schema";
+import React from "react";
 
 type Props = {
   task: SchemaModel.Task;

@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import { withTransaction } from "~/util/pool";
 import { Model } from "~/@types";
 import { existsLoginId, insertAccount } from "~/repositories/accountRepository";
 import { insertUser } from "~/repositories/userRepository";
+import { withTransaction } from "~/util/pool";
 
 type Props = {
   loginId: string;

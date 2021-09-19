@@ -1,7 +1,7 @@
+import { Schema } from "@app/schema";
 import express from "express";
 import { loginUser } from "~/services/auth/loginUser";
 import { serializeUser } from "~/util/serializer";
-import { Schema } from "@app/schema";
 
 export const signInRouter = express.Router();
 

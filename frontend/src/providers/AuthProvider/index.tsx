@@ -1,9 +1,9 @@
+import { SchemaModel, Schema } from "@app/schema";
 import React from "react";
 import { getAuthMe } from "~/api/v1/auth/me";
-import { postSignUp } from "~/api/v1/auth/signUp";
 import { postSignIn } from "~/api/v1/auth/signIn";
 import { deleteSignOut } from "~/api/v1/auth/signOut";
-import { SchemaModel, Schema } from "@app/schema";
+import { postSignUp } from "~/api/v1/auth/signUp";
 
 export type SignUpProps = Schema.PostAuthSignUp["requestBody"];
 

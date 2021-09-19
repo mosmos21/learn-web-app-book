@@ -1,7 +1,7 @@
 import express from "express";
 import { authRouter } from "~/handlers/auth";
-import { tasksRouter } from "~/handlers/tasks";
 import { categoriesRouter } from "~/handlers/categories";
+import { tasksRouter } from "~/handlers/tasks";
 
 export const router = express.Router();
 

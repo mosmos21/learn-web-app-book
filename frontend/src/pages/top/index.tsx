@@ -1,7 +1,7 @@
 import React from "react";
-import { Template } from "~/templates/top";
-import { useAuthContext } from "~/providers/AuthProvider";
 import { Redirect } from "react-router-dom";
+import { useAuthContext } from "~/providers/AuthProvider";
+import { Template } from "~/templates/top";
 
 export const TopPage = () => {
   const { isSignedIn } = useAuthContext();

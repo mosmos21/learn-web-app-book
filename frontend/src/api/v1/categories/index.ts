@@ -1,5 +1,5 @@
-import { fetcher } from "~/api/fetcher";
 import { Schema } from "@app/schema";
+import { fetcher } from "~/api/fetcher";
 
 export const getCategories = () => fetcher<Schema.GetCategories["response"]>()("/api/v1/categories");
 

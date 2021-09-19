@@ -1,9 +1,9 @@
+import { Schema } from "@app/schema";
 import express from "express";
 import { loginRequired } from "~/handlers/loginRequired";
-import { listTasks } from "~/services/tasks/listTasks";
 import { addTask } from "~/services/tasks/addTask";
+import { listTasks } from "~/services/tasks/listTasks";
 import { serializeTasks, serializeTask } from "~/util/serializer";
-import { Schema } from "@app/schema";
 
 export const tasksRouter = express.Router();
 

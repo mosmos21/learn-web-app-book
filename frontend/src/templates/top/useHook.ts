@@ -1,5 +1,5 @@
-import React from "react";
 import { SchemaModel } from "@app/schema";
+import React from "react";
 import { getCategories } from "~/api/v1/categories";
 import { getTasks } from "~/api/v1/tasks";
 import { postTask } from "~/api/v1/tasks";

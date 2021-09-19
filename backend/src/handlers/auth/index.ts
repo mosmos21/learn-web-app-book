@@ -1,8 +1,8 @@
 import express from "express";
-import { signUpRouter } from "~/handlers/auth/signUp";
+import { meRouter } from "~/handlers/auth/me";
 import { signInRouter } from "~/handlers/auth/signIn";
 import { signOutRouter } from "~/handlers/auth/signOut";
-import { meRouter } from "~/handlers/auth/me";
+import { signUpRouter } from "~/handlers/auth/signUp";
 
 export const authRouter = express.Router();
 

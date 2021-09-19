@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { TopPage } from "~/pages/top";
 import { SignInPage } from "~/pages/auth/signIn";
 import { SignUpPage } from "~/pages/auth/signUp";
 import { CategoriesPage } from "~/pages/categories";
+import { TopPage } from "~/pages/top";
 
 export const Routes = () => (
   <BrowserRouter>

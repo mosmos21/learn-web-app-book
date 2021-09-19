@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuthContext } from "~/providers/AuthProvider";
 import { Redirect } from "react-router-dom";
+import { useAuthContext } from "~/providers/AuthProvider";
 import { Template } from "~/templates/auth/signUp";
 
 export const SignUpPage = () => {

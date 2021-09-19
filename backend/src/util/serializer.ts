@@ -1,5 +1,5 @@
-import { Model } from "~/@types";
 import { SchemaModel } from "@app/schema";
+import { Model } from "~/@types";
 
 export const serializeUser = (user: Model.User): SchemaModel.User => ({
   name: user.name,

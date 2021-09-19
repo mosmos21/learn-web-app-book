@@ -1,9 +1,9 @@
+import { Schema } from "@app/schema";
 import express from "express";
 import { loginRequired } from "~/handlers/loginRequired";
-import { listCategories } from "~/services/categories/listCategories";
 import { addCategory } from "~/services/categories/addCategory";
+import { listCategories } from "~/services/categories/listCategories";
 import { serializeCategories, serializeCategory } from "~/util/serializer";
-import { Schema } from "@app/schema";
 
 export const categoriesRouter = express.Router();
 

@@ -1,6 +1,6 @@
 import express from "express";
-import morgan from "morgan";
 import session from "express-session";
+import morgan from "morgan";
 import { router } from "~/handlers";
 
 const app = express();

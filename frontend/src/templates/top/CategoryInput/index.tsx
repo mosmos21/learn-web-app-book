@@ -1,4 +1,3 @@
-import React from "react";
 import { SchemaModel } from "@app/schema";
 import {
   Box,
@@ -12,6 +11,7 @@ import {
   SelectChangeEvent,
   colors,
 } from "@mui/material";
+import React from "react";
 
 type Props = {
   categories: SchemaModel.Category[];

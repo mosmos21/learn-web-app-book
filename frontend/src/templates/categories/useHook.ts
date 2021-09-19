@@ -1,7 +1,7 @@
+import { SchemaModel } from "@app/schema";
 import React from "react";
 import { getCategories } from "~/api/v1/categories";
 import { postCategory } from "~/api/v1/categories";
-import { SchemaModel } from "@app/schema";
 
 export const useHook = () => {
   const [categories, setCategories] = React.useState<SchemaModel.Category[]>([]);

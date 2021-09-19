@@ -1,7 +1,7 @@
 import React from "react";
-import { Template } from "~/templates/auth/signIn";
-import { useAuthContext } from "~/providers/AuthProvider";
 import { Redirect } from "react-router-dom";
+import { useAuthContext } from "~/providers/AuthProvider";
+import { Template } from "~/templates/auth/signIn";
 
 export const SignInPage = () => {
   const { isSignedIn } = useAuthContext();

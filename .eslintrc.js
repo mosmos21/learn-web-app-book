@@ -14,6 +14,9 @@ module.exports = {
     "import/resolver": {
       typescript: {
         project: "*/tsconfig.json"
+      },
+      node: {
+        extensions: [".ts", ".tsx"]
       }
     }
   },
@@ -21,10 +24,12 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:import/recommended",
+    "plugin:import/errors",
     "plugin:import/typescript"
   ],
   rules: {
-    "import/default": "off"
+    "import/default": "off",
+    "sort-imports": 0,
+    "import/order": [2, { "alphabetize": { "order": "asc" } }]
   }
 };

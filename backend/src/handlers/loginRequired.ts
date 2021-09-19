@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
-import { LoginRequiredRequestHandler } from "~/@types";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
+import { LoginRequiredRequestHandler } from "~/@types";
 import { findById } from "~/repositories/userRepository";
 
 export const loginRequired =

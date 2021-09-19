@@ -1,6 +1,6 @@
 import React from "react";
-import { useHook } from "~/templates/categories/useHook";
 import { Form } from "~/templates/categories/Form";
+import { useHook } from "~/templates/categories/useHook";
 
 export const Template = () => {
   const [{ categories }, { addCategory }] = useHook();

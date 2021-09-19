@@ -1,8 +1,8 @@
-import React from "react";
 import { Box } from "@mui/material";
+import React from "react";
 import { SignUpForm } from "~/containers/SignUpForm";
-import { useHook } from "~/templates/auth/signUp/useHook";
 import { TitleOnlyLayout } from "~/layouts/TitleOnlyLayout";
+import { useHook } from "~/templates/auth/signUp/useHook";
 
 export const Template = () => {
   const { handleSubmitForm } = useHook();

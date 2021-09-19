@@ -1,6 +1,6 @@
-import { pool } from "~/util/pool";
-import { Model } from "~/@types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Model } from "~/@types";
+import { pool } from "~/util/pool";
 
 export const findById = async (id: number): Promise<Model.TaskWithCategory | null> => {
   const columns = ["c.id as categoryId", "c.name as categoryName", "title", "content", "status"];

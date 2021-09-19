@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { ParsedQs } from "qs";
 import { NextFunction, ParamsDictionary } from "express-serve-static-core";
+import { ParsedQs } from "qs";
 
 declare module "express-session" {
   interface SessionData {

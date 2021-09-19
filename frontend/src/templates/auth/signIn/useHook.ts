@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useAuthContext } from "~/providers/AuthProvider";
 import { FormData } from "~/containers/SignInForm";
+import { useAuthContext } from "~/providers/AuthProvider";
 
 export const useHook = () => {
   const history = useHistory();

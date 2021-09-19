@@ -1,6 +1,6 @@
-import { pool } from "~/util/pool";
-import { Model } from "~/@types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Model } from "~/@types";
+import { pool } from "~/util/pool";
 
 export const findByUserIdAndName = async (userId: number, name: string): Promise<Model.Category | null> => {
   const [rows] = await pool.query<

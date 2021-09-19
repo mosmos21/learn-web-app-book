@@ -1,8 +1,8 @@
 import { Model } from "~/@types";
 import TaskWithCategory = Model.TaskWithCategory;
-import { withTransaction } from "~/util/pool";
-import { insertTask, findById } from "~/repositories/taskRepository";
 import { findByUserIdAndName, insertCategory } from "~/repositories/categoryRepository";
+import { insertTask, findById } from "~/repositories/taskRepository";
+import { withTransaction } from "~/util/pool";
 
 type Props = {
   user: Model.User;

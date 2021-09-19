@@ -1,8 +1,8 @@
 import React from "react";
-import { useHook } from "~/templates/top/useHook";
+import { DefaultLayout } from "~/layouts/DefaultLayout";
 import { Form } from "~/templates/top/Form";
 import { TaskCard } from "~/templates/top/TaskCard";
-import { DefaultLayout } from "~/layouts/DefaultLayout";
+import { useHook } from "~/templates/top/useHook";
 
 export const Template = () => {
   const [{ categories, tasks }, { addTask }] = useHook();

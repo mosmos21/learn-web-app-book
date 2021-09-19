@@ -1,6 +1,6 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, colors } from "@mui/material";
 import { Logout } from "@mui/icons-material";
+import { AppBar, Toolbar, Typography, IconButton, colors } from "@mui/material";
+import React from "react";
 import { useAuthContext } from "~/providers/AuthProvider";
 
 export const DefaultLayout: React.FC = ({ children }) => {
