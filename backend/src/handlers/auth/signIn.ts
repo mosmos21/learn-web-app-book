@@ -5,7 +5,7 @@ import { Schema } from "@app/schema";
 
 export const signInRouter = express.Router();
 
-signInRouter.post<{}, Schema.PostAuthSignIn["response"], Schema.PostAuthSignIn["requestBody"]>(
+signInRouter.post<Record<string, unknown>, Schema.PostAuthSignIn["response"], Schema.PostAuthSignIn["requestBody"]>(
   "/auth/sign_in",
   async (req, res) => {
     const result = await loginUser(req.body);

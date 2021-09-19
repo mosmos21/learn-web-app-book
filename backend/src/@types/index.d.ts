@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { User, Account } from "@prisma/client";
 import { ParsedQs } from "qs";
 import { NextFunction, ParamsDictionary } from "express-serve-static-core";
 
@@ -18,7 +17,7 @@ export type LoginRequiredRequestHandler<
 > = (
   req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
   res: Response<ResBody, Locals>,
-  currentUser: User & { account: Account | null },
+  currentUser: Model.User,
   next: NextFunction,
 ) => void;
 

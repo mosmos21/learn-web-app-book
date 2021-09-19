@@ -19,7 +19,7 @@ type Props = {
   onChange: (value: string) => void;
 };
 
-export const CategoryInput: React.VFC<Props> = ({ categories, value, onChange }) => {
+export const CategoryInput: React.VFC<Props> = ({ categories, value, onChange }: Props) => {
   const [showsTextInput, setShowsTextInput] = React.useState(true);
 
   const handleChangeTextInput = React.useCallback(

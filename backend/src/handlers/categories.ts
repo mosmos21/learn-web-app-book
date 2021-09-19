@@ -7,7 +7,7 @@ import { Schema } from "@app/schema";
 
 export const categoriesRouter = express.Router();
 
-categoriesRouter.get<{}, Schema.GetCategories["response"]>(
+categoriesRouter.get<Record<string, unknown>, Schema.GetCategories["response"]>(
   "/categories",
   loginRequired(async (_, res, user) => {
     const categories = await listCategories({ user });
@@ -16,7 +16,7 @@ categoriesRouter.get<{}, Schema.GetCategories["response"]>(
   }),
 );
 
-categoriesRouter.post<{}, Schema.PostCategories["response"], Schema.PostCategories["requestBody"]>(
+categoriesRouter.post<Record<string, unknown>, Schema.PostCategories["response"], Schema.PostCategories["requestBody"]>(
   "/categories",
   loginRequired(async (req, res, user) => {
     const { name } = req.body;

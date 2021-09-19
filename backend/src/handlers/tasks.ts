@@ -7,7 +7,7 @@ import { Schema } from "@app/schema";
 
 export const tasksRouter = express.Router();
 
-tasksRouter.get<{}, Schema.GetTasks["response"], void, Schema.GetTasks["query"]>(
+tasksRouter.get<Record<string, unknown>, Schema.GetTasks["response"], void, Schema.GetTasks["query"]>(
   "/tasks",
   loginRequired(async (req, res, user) => {
     const tasks = await listTasks({
@@ -19,7 +19,7 @@ tasksRouter.get<{}, Schema.GetTasks["response"], void, Schema.GetTasks["query"]>
   }),
 );
 
-tasksRouter.post<{}, Schema.PostTasks["response"], Schema.PostTasks["requestBody"]>(
+tasksRouter.post<Record<string, unknown>, Schema.PostTasks["response"], Schema.PostTasks["requestBody"]>(
   "/tasks",
   loginRequired(async (req, res, user) => {
     const task = await addTask({ user, ...req.body });

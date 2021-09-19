@@ -5,7 +5,7 @@ import { Schema } from "@app/schema";
 
 export const signUpRouter = express.Router();
 
-signUpRouter.post<{}, Schema.PostAuthSignUp["response"], Schema.PostAuthSignUp["requestBody"]>(
+signUpRouter.post<Record<string, unknown>, Schema.PostAuthSignUp["response"], Schema.PostAuthSignUp["requestBody"]>(
   "/auth/sign_up",
   async (req, res) => {
     const result = await registerUser(req.body);
