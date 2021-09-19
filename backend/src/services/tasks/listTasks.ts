@@ -1,5 +1,4 @@
 import { Model } from "~/@types";
-import TaskWithCategory = Model.TaskWithCategory;
 import { existsIdAndUserId } from "~/repositories/categoryRepository";
 import { whereByCategoryId, whereByUserId } from "~/repositories/taskRepository";
 
@@ -8,7 +7,7 @@ type Props = {
   categoryId?: number;
 };
 
-export const listTasks = async ({ user, categoryId }: Props): Promise<TaskWithCategory[]> => {
+export const listTasks = async ({ user, categoryId }: Props): Promise<Model.TaskWithCategory[]> => {
   if (categoryId) {
     if (!(await existsIdAndUserId(categoryId, user.id))) {
       throw new Error();

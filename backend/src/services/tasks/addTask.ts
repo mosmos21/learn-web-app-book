@@ -1,5 +1,4 @@
 import { Model } from "~/@types";
-import TaskWithCategory = Model.TaskWithCategory;
 import { findByUserIdAndName, insertCategory } from "~/repositories/categoryRepository";
 import { insertTask, findById } from "~/repositories/taskRepository";
 import { withTransaction } from "~/util/pool";
@@ -11,7 +10,7 @@ type Props = {
   categoryName: string;
 };
 
-export const addTask = async ({ user, title, content, categoryName }: Props): Promise<TaskWithCategory> =>
+export const addTask = async ({ user, title, content, categoryName }: Props): Promise<Model.TaskWithCategory> =>
   withTransaction(async () => {
     const category = await findOrInsertCategory(user.id, categoryName);
 

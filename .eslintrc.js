@@ -13,10 +13,11 @@ module.exports = {
     },
     "import/resolver": {
       typescript: {
+        alwaysTryTypes: true,
         project: "*/tsconfig.json"
       },
       node: {
-        extensions: [".ts", ".tsx"]
+        extensions: [".ts", ".tsx", ".d.ts"]
       }
     }
   },
