@@ -1,55 +1,43 @@
-import React from "react"
-import {
-  TextField,
-  Button,
-  Box,
-  makeStyles
-} from "@material-ui/core";
+import React from "react";
+import { TextField, Button, Box, colors } from "@mui/material";
 import { SignInProps } from "~/providers/AuthProvider";
 
 export type FormData = SignInProps;
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  form: {
-    marginTop: theme.spacing(1)
-  },
-  submitButton: {
-    margin: theme.spacing(2, 0)
-  }
-}));
-
 type Props = {
   onSubmit: (formData: FormData) => void;
-}
+};
 
 export const SignInForm = ({ onSubmit }: Props) => {
-  const classes = useStyles();
   const [formData, setFormData] = React.useState<FormData>({
     loginId: "",
-    password: ""
-  })
+    password: "",
+  });
 
-  const handleSubmitForm = React.useCallback((event: React.FormEvent) => {
-    event.preventDefault();
-    onSubmit(formData);
-  }, [onSubmit, formData]);
+  const handleSubmitForm = React.useCallback(
+    (event: React.FormEvent) => {
+      event.preventDefault();
+      onSubmit(formData);
+    },
+    [onSubmit, formData],
+  );
 
-  const handleChangeLoginId = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, loginId: event.target.value });
-  }, [formData]);
+  const handleChangeLoginId = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({ ...formData, loginId: event.target.value });
+    },
+    [formData],
+  );
 
-  const handleChangePassword = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, password: event.target.value });
-  }, [formData]);
+  const handleChangePassword = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({ ...formData, password: event.target.value });
+    },
+    [formData],
+  );
 
   return (
-    <Box className={classes.paper}>
+    <Box sx={{ width: 400, border: `1px solid ${colors.grey[200]}`, borderRadius: 1, padding: 3 }}>
       <form onSubmit={handleSubmitForm}>
         <TextField
           required
@@ -73,16 +61,10 @@ export const SignInForm = ({ onSubmit }: Props) => {
           value={formData.password}
           onChange={handleChangePassword}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submitButton}
-        >
+        <Button type="submit" fullWidth variant="contained" color="primary">
           Sign In
         </Button>
       </form>
     </Box>
-  )
-}
+  );
+};

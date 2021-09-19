@@ -14,33 +14,32 @@ export type LoginRequiredRequestHandler<
   ResBody = any,
   ReqBody = any,
   ReqQuery = ParsedQs,
-  Locals extends Record<string, any> = Record<string, any>
-  > =
-  (
-    req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
-    res: Response<ResBody, Locals>,
-    currentUser: User & { account: Account | null },
-    next: NextFunction,
-  ) => void;
+  Locals extends Record<string, any> = Record<string, any>,
+> = (
+  req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
+  res: Response<ResBody, Locals>,
+  currentUser: User & { account: Account | null },
+  next: NextFunction,
+) => void;
 
 export namespace Model {
   type User = {
     id: number;
     name: string;
-  }
+  };
 
   type Account = {
     id: number;
     userId: User["id"];
     loginId: string;
     encryptedPassword: string;
-  }
+  };
 
   type Category = {
     id: number;
     userId: User["id"];
     name: string;
-  }
+  };
 
   type TaskStatus = "NEW" | "DOING" | "COMPLETED";
 
@@ -50,9 +49,9 @@ export namespace Model {
     title: string;
     content: string | null;
     status: TaskStatus;
-  }
+  };
 
   type TaskWithCategory = Omit<Task, "categoryId"> & {
-    category: Omit<Category, "userId">
-  }
+    category: Omit<Category, "userId">;
+  };
 }

@@ -6,12 +6,9 @@ import { findById } from "~/repositories/userRepository";
 type Props = {
   loginId: string;
   password: string;
-}
+};
 
-export const loginUser = async ({
-  loginId,
-  password
-}: Props): Promise<Model.User> => {
+export const loginUser = async ({ loginId, password }: Props): Promise<Model.User> => {
   const account = await findByLoginId(loginId);
   if (!account) {
     throw new Error();
@@ -28,4 +25,4 @@ export const loginUser = async ({
   }
 
   return user;
-}
+};

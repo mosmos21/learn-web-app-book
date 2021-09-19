@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { SchemaModel } from "@app/schema";
 import { getCategories } from "~/api/v1/categories";
 import { getTasks } from "~/api/v1/tasks";
@@ -9,11 +9,14 @@ export const useHook = () => {
   const [categories, setCategories] = React.useState<SchemaModel.Category[]>([]);
   const [tasks, setTasks] = React.useState<SchemaModel.Task[]>([]);
 
-  const addTask = React.useCallback((formData: FormData) => {
-    postTask(formData).then(({ task }) => {
-      setTasks([...tasks, task]);
-    })
-  }, [tasks]);
+  const addTask = React.useCallback(
+    (formData: FormData) => {
+      postTask(formData).then(({ task }) => {
+        setTasks([...tasks, task]);
+      });
+    },
+    [tasks],
+  );
 
   React.useEffect(() => {
     getCategories().then(({ categories }) => {
@@ -21,10 +24,7 @@ export const useHook = () => {
     });
     getTasks().then(({ tasks }) => {
       setTasks(tasks);
-    })
+    });
   }, []);
-  return [
-    { categories, tasks },
-    { addTask }
-  ] as const;
-}
+  return [{ categories, tasks }, { addTask }] as const;
+};

@@ -1,4 +1,4 @@
-import express from "express"
+import express from "express";
 import { loginRequired } from "~/handlers/loginRequired";
 import { listTasks } from "~/services/tasks/listTasks";
 import { addTask } from "~/services/tasks/addTask";
@@ -7,26 +7,23 @@ import { Schema } from "@app/schema";
 
 export const tasksRouter = express.Router();
 
-tasksRouter.get<
-  {},
-  Schema.GetTasks["response"],
-  void,
-  Schema.GetTasks["query"]
->("/tasks", loginRequired(async (req, res, user) => {
-  const tasks = await listTasks({
-    user,
-    categoryId: req.query.categoryId === undefined ? undefined : Number(req.query.categoryId)
-  });
+tasksRouter.get<{}, Schema.GetTasks["response"], void, Schema.GetTasks["query"]>(
+  "/tasks",
+  loginRequired(async (req, res, user) => {
+    const tasks = await listTasks({
+      user,
+      categoryId: req.query.categoryId === undefined ? undefined : Number(req.query.categoryId),
+    });
 
-  res.json({ tasks: serializeTasks(tasks) });
-}));
+    res.json({ tasks: serializeTasks(tasks) });
+  }),
+);
 
-tasksRouter.post<
-  {},
-  Schema.PostTasks["response"],
-  Schema.PostTasks["requestBody"]
->("/tasks", loginRequired(async (req, res, user) => {
-  const task = await addTask({ user, ...req.body });
+tasksRouter.post<{}, Schema.PostTasks["response"], Schema.PostTasks["requestBody"]>(
+  "/tasks",
+  loginRequired(async (req, res, user) => {
+    const task = await addTask({ user, ...req.body });
 
-  res.json({ task: serializeTask(task) });
-}));
+    res.json({ task: serializeTask(task) });
+  }),
+);

@@ -5,13 +5,12 @@ import { Schema } from "@app/schema";
 
 export const signInRouter = express.Router();
 
-signInRouter.post<
-  {},
-  Schema.PostAuthSignIn["response"],
-  Schema.PostAuthSignIn["requestBody"]
->("/auth/sign_in", async (req, res) => {
-  const result = await loginUser(req.body);
+signInRouter.post<{}, Schema.PostAuthSignIn["response"], Schema.PostAuthSignIn["requestBody"]>(
+  "/auth/sign_in",
+  async (req, res) => {
+    const result = await loginUser(req.body);
 
-  req.session.userId = result.id;
-  res.json({ user: serializeUser(result) });
-});
+    req.session.userId = result.id;
+    res.json({ user: serializeUser(result) });
+  },
+);

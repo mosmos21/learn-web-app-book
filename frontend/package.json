@@ -4,32 +4,20 @@
   "private": true,
   "dependencies": {
     "@app/schema": "file:../schema",
-    "@material-ui/core": "^4.12.3",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.19",
-    "@types/react": "^17.0.16",
-    "@types/react-dom": "^17.0.9",
-    "@types/react-router-dom": "^5.1.8",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0",
+    "destyle.css": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-app-rewired start --script-version react-scripts-ts",
     "build": "react-app-rewired build --script-version react-scripts-ts",
     "test": "react-app-rewired test --script-version react-scripts-ts"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -44,7 +32,17 @@
     ]
   },
   "devDependencies": {
-    "react-app-rewired": "^2.1.8"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.19",
+    "@types/react": "^17.0.16",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-router-dom": "^5.1.8",
+    "react-app-rewired": "^2.1.8",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.3.5"
   },
   "proxy": "http://localhost:3001"
 }

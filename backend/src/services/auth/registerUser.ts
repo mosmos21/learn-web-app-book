@@ -8,13 +8,9 @@ type Props = {
   loginId: string;
   name: string;
   password: string;
-}
+};
 
-export const registerUser = async ({
-  loginId,
-  name,
-  password
-}: Props): Promise<Model.User> => {
+export const registerUser = async ({ loginId, name, password }: Props): Promise<Model.User> => {
   if (await existsLoginId(loginId)) {
     throw new Error();
   }
@@ -27,4 +23,4 @@ export const registerUser = async ({
 
     return user;
   });
-}
+};

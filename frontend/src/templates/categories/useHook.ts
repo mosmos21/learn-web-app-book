@@ -6,11 +6,14 @@ import { SchemaModel } from "@app/schema";
 export const useHook = () => {
   const [categories, setCategories] = React.useState<SchemaModel.Category[]>([]);
 
-  const addCategory = React.useCallback((name: string) => {
-    postCategory({ name }).then(({ category }) => {
-      setCategories([...categories, category]);
-    })
-  }, [categories]);
+  const addCategory = React.useCallback(
+    (name: string) => {
+      postCategory({ name }).then(({ category }) => {
+        setCategories([...categories, category]);
+      });
+    },
+    [categories],
+  );
 
   React.useEffect(() => {
     getCategories().then(({ categories }) => {
@@ -18,8 +21,5 @@ export const useHook = () => {
     });
   }, []);
 
-  return [
-    { categories },
-    { addCategory }
-  ] as const;
-}
+  return [{ categories }, { addCategory }] as const;
+};

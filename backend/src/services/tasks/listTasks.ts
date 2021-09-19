@@ -4,16 +4,13 @@ import { existsIdAndUserId } from "~/repositories/categoryRepository";
 import { whereByCategoryId, whereByUserId } from "~/repositories/taskRepository";
 
 type Props = {
-  user: Model.User,
+  user: Model.User;
   categoryId?: number;
-}
+};
 
-export const listTasks = async ({
-  user,
-  categoryId
-}: Props): Promise<TaskWithCategory[]> => {
+export const listTasks = async ({ user, categoryId }: Props): Promise<TaskWithCategory[]> => {
   if (categoryId) {
-    if (!await existsIdAndUserId(categoryId, user.id)) {
+    if (!(await existsIdAndUserId(categoryId, user.id))) {
       throw new Error();
     }
 
@@ -21,4 +18,4 @@ export const listTasks = async ({
   } else {
     return await whereByUserId(user.id);
   }
-}
+};

@@ -5,9 +5,7 @@ import { Template } from "~/templates/auth/signUp";
 
 export const SignUpPage = () => {
   const { isSignedIn } = useAuthContext();
-  if (isSignedIn) return <Redirect to="/auth/sign_in" />
+  if (isSignedIn) return <Redirect to="/auth/sign_in" />;
 
-  return (
-    <Template />
-  );
-}
+  return <Template />;
+};

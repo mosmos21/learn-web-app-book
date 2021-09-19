@@ -8,7 +8,7 @@ export const pool = mysql.createPool({
   database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 5,
-  queueLimit: 0
+  queueLimit: 0,
 });
 
 export const withTransaction = async <T = void>(func: () => Promise<T>): Promise<T> => {
@@ -23,4 +23,4 @@ export const withTransaction = async <T = void>(func: () => Promise<T>): Promise
     await conn.rollback();
     throw err;
   }
-}
+};

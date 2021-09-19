@@ -7,7 +7,5 @@ export const SignInPage = () => {
   const { isSignedIn } = useAuthContext();
   if (isSignedIn) return <Redirect to="/" />;
 
-  return (
-    <Template />
-  );
-}
+  return <Template />;
+};

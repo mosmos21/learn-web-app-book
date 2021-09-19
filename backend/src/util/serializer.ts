@@ -2,17 +2,18 @@ import { Model } from "~/@types";
 import { SchemaModel } from "@app/schema";
 
 export const serializeUser = (user: Model.User): SchemaModel.User => ({
-  name: user.name
+  name: user.name,
 });
 
-export const serializeCategories = (categories: Model.Category[]): SchemaModel.Category[] => categories.map(serializeCategory);
+export const serializeCategories = (categories: Model.Category[]): SchemaModel.Category[] =>
+  categories.map(serializeCategory);
 
 export const serializeCategory = (category: Model.Category): SchemaModel.Category => ({
   id: category.id,
-  name: category.name
+  name: category.name,
 });
 
-export const serializeTasks = (tasks: Model.TaskWithCategory[]): SchemaModel.Task[] => tasks.map(serializeTask)
+export const serializeTasks = (tasks: Model.TaskWithCategory[]): SchemaModel.Task[] => tasks.map(serializeTask);
 
 export const serializeTask = (task: Model.TaskWithCategory): SchemaModel.Task => ({
   id: task.id,
@@ -21,7 +22,6 @@ export const serializeTask = (task: Model.TaskWithCategory): SchemaModel.Task =>
   status: task.status,
   category: {
     id: task.category.id,
-    name: task.category.name
-  }
+    name: task.category.name,
+  },
 });
-
