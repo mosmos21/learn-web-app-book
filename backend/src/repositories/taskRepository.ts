@@ -61,7 +61,6 @@ export const whereByCategoryId = async (categoryId: number): Promise<Model.TaskW
 };
 
 export const whereByUserId = async (userId: number): Promise<Model.TaskWithCategory[]> => {
-  const columns = ["t.id", "c.id", "c.name", "t.title", "t.content", "t.status"];
   const [rows] = await pool.query<
     (RowDataPacket & {
       id: number;
@@ -71,10 +70,10 @@ export const whereByUserId = async (userId: number): Promise<Model.TaskWithCateg
       content: string | null;
       status: Model.TaskStatus;
     })[]
-  >("SELECT ?? FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `c`.`userId` = ?", [
-    columns,
-    userId,
-  ]);
+  >(
+    "SELECT `t`.`id` AS id, `c`.`id` AS `categoryId`, `c`.`name` AS `categoryName`, `t`.`title`, `t`.`content`, `t`.`status` FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `c`.`userId` = ?",
+    [userId],
+  );
 
   return rows.map((task) => ({
     id: task.id,

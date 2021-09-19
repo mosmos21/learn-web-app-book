@@ -5,8 +5,12 @@ export const serializeUser = (user: Model.User): SchemaModel.User => ({
   name: user.name,
 });
 
-export const serializeCategories = (categories: Model.Category[]): SchemaModel.Category[] =>
-  categories.map(serializeCategory);
+export const serializeCategories = (categories: Model.CategoryWithCount[]): SchemaModel.CategoryWithCount[] =>
+  categories.map((category) => ({
+    id: category.id,
+    name: category.name,
+    taskCount: category.taskCount,
+  }));
 
 export const serializeCategory = (category: Model.Category): SchemaModel.Category => ({
   id: category.id,

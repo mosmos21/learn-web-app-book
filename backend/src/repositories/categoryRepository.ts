@@ -16,18 +16,23 @@ export const findByUserIdAndName = async (userId: number, name: string): Promise
   return { id, userId, name };
 };
 
-export const whereByUserId = async (userId: number): Promise<Model.Category[]> => {
+export const whereByUserId = async (userId: number): Promise<Model.CategoryWithCount[]> => {
   const [rows] = await pool.query<
     (RowDataPacket & {
       id: number;
       name: string;
+      taskCount: number;
     })[]
-  >("SELECT `id`, `name` FROM `categories` WHERE `userId` = ?", [userId]);
+  >(
+    "SELECT `c`.`id`, `c`.`name`, COUNT(1) as `taskCount` FROM `categories` `c` JOIN `tasks` `t` ON `c`.`id` = `t`.`categoryId` WHERE `userId` = ? GROUP BY `c`.`id`, `c`.`name`",
+    [userId],
+  );
 
-  return rows.map((row) => ({
-    id: row.id,
-    name: row.name,
+  return rows.map(({ id, name, taskCount }) => ({
+    id,
+    name,
     userId,
+    taskCount,
   }));
 };
 

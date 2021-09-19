@@ -3,12 +3,12 @@ import React from "react";
 import { getCategories, postCategory, deleteCategory } from "~/api/v1/categories";
 
 export const useHook = () => {
-  const [categories, setCategories] = React.useState<SchemaModel.Category[]>([]);
+  const [categories, setCategories] = React.useState<SchemaModel.CategoryWithCount[]>([]);
 
   const addCategory = React.useCallback(
     (name: string) => {
       postCategory({ name }).then(({ category }) => {
-        setCategories([...categories, category]);
+        setCategories([...categories, { ...category, taskCount: 0 }]);
       });
     },
     [categories],

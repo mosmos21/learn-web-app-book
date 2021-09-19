@@ -40,6 +40,10 @@ export namespace Model {
     name: string;
   };
 
+  type CategoryWithCount = Category & {
+    taskCount: number;
+  };
+
   type TaskStatus = "NEW" | "DOING" | "COMPLETED";
 
   type Task = {

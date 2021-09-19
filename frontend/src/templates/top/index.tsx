@@ -1,8 +1,9 @@
 import React from "react";
 import { DefaultLayout } from "~/layouts/DefaultLayout";
 import { Form } from "~/templates/top/Form";
-import { TaskCard } from "~/templates/top/TaskCard";
 import { useHook } from "~/templates/top/useHook";
+import { Table } from "~/templates/top/Table";
+import { Box } from "@mui/material";
 
 export const Template = () => {
   const [{ categories, tasks }, { addTask }] = useHook();
@@ -10,11 +11,9 @@ export const Template = () => {
   return (
     <DefaultLayout>
       <Form categories={categories} onSubmit={addTask} />
-      <div>
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
-      </div>
+      <Box sx={{ margin: 3 }}>
+        <Table tasks={tasks} />
+      </Box>
     </DefaultLayout>
   );
 };

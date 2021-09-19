@@ -4,6 +4,10 @@ export namespace SchemaModel {
     name: string;
   };
 
+  type CategoryWithCount = Category & {
+    taskCount: number;
+  };
+
   type TaskStatus = "NEW" | "DOING" | "COMPLETED";
 
   type Task = {
@@ -27,7 +31,7 @@ export namespace Schema {
   // GET /api/v1/categories
   type GetCategories = {
     response: {
-      categories: SchemaModel.Category[];
+      categories: SchemaModel.CategoryWithCount[];
     };
   };
 

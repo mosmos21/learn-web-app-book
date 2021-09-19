@@ -9,15 +9,17 @@ import {
   TableCell,
   IconButton,
   Paper,
+  Typography,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
-  categories: SchemaModel.Category[];
+  categories: SchemaModel.CategoryWithCount[];
   onClickDelete: (idx: number) => void;
 };
 
-export const Table: React.VFC<Props> = ({ categories, onClickDelete }: Props) => {
+export const Table: React.VFC<Props> = ({ categories, onClickDelete }) => {
   const handleClickDelete = React.useMemo(
     () => categories.map((_, idx) => () => onClickDelete(idx)),
     [categories, onClickDelete],
@@ -31,7 +33,7 @@ export const Table: React.VFC<Props> = ({ categories, onClickDelete }: Props) =>
             <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Task Count</TableCell>
-            <TableCell>Delete</TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,11 +41,17 @@ export const Table: React.VFC<Props> = ({ categories, onClickDelete }: Props) =>
             <TableRow key={category.id}>
               <TableCell>{category.id}</TableCell>
               <TableCell>{category.name}</TableCell>
-              <TableCell>0</TableCell>
               <TableCell>
-                <IconButton onClick={handleClickDelete[idx]}>
-                  <Delete />
-                </IconButton>
+                <Link to={`/?categoryId=${category.id}`}>
+                  <Typography sx={{ textDecoration: "underline" }}>{category.taskCount}</Typography>
+                </Link>
+              </TableCell>
+              <TableCell>
+                {category.taskCount === 0 && (
+                  <IconButton onClick={handleClickDelete[idx]}>
+                    <Delete />
+                  </IconButton>
+                )}
               </TableCell>
             </TableRow>
           ))}

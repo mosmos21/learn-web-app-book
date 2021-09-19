@@ -5,6 +5,6 @@ type Props = {
   user: Model.User;
 };
 
-export const listCategories = async ({ user }: Props): Promise<Model.Category[]> => {
+export const listCategories = async ({ user }: Props): Promise<Model.CategoryWithCount[]> => {
   return await whereByUserId(user.id);
 };
