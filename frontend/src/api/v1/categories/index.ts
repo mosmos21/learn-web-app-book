@@ -8,3 +8,8 @@ export const postCategory = (body: Schema.PostCategories["requestBody"]) =>
     method: "POST",
     body: JSON.stringify(body),
   });
+
+export const deleteCategory = (params: Schema.DeleteCategory["routeParameters"]) =>
+  fetcher<Schema.DeleteCategory["response"]>()(`/api/v1/categories/${params.id}`, {
+    method: "DELETE",
+  });

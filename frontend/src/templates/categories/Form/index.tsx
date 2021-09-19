@@ -1,5 +1,6 @@
-import { Button, TextField, Box, FormControl, InputLabel, colors } from "@mui/material";
+import { Button, TextField, Box, FormControl, InputLabel } from "@mui/material";
 import React from "react";
+import { FormCard } from "~/components/FormCard";
 
 type Props = {
   onSubmit: (name: string) => void;
@@ -21,13 +22,12 @@ export const Form = ({ onSubmit }: Props) => {
   );
 
   return (
-    <Box sx={{ width: 300, border: `1px solid black` }}>
+    <FormCard>
       <form onSubmit={handleSubmit}>
-        <FormControl>
-          <InputLabel shrink>CategoryName</InputLabel>
+        <FormControl fullWidth>
+          <InputLabel shrink>Category Name</InputLabel>
           <TextField
             required
-            fullWidth
             variant="outlined"
             margin="normal"
             type="text"
@@ -35,10 +35,12 @@ export const Form = ({ onSubmit }: Props) => {
             onChange={handleChangeValue}
           />
         </FormControl>
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          Add
-        </Button>
+        <FormControl fullWidth sx={{ marginTop: 2 }}>
+          <Button type="submit" variant="contained" color="primary">
+            Add
+          </Button>
+        </FormControl>
       </form>
-    </Box>
+    </FormCard>
   );
 };

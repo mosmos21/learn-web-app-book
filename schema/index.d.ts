@@ -41,6 +41,16 @@ export namespace Schema {
     };
   };
 
+  // DELETE /api/v1/categories/:id
+  type DeleteCategory = {
+    routeParameters: {
+      id: string;
+    };
+    response: {
+      id: number;
+    };
+  };
+
   // GET /api/v1/tasks
   type GetTasks = {
     query: {

@@ -1,18 +1,19 @@
+import { Box } from "@mui/material";
 import React from "react";
+import { DefaultLayout } from "~/layouts/DefaultLayout";
 import { Form } from "~/templates/categories/Form";
+import { Table } from "~/templates/categories/Table";
 import { useHook } from "~/templates/categories/useHook";
 
 export const Template = () => {
-  const [{ categories }, { addCategory }] = useHook();
+  const [{ categories }, { addCategory, removeCategory }] = useHook();
 
   return (
-    <div>
+    <DefaultLayout>
       <Form onSubmit={addCategory} />
-      <div>
-        {categories.map((category) => (
-          <div key={category.id}>{category.name}</div>
-        ))}
-      </div>
-    </div>
+      <Box sx={{ margin: 3 }}>
+        <Table categories={categories} onClickDelete={removeCategory} />
+      </Box>
+    </DefaultLayout>
   );
 };

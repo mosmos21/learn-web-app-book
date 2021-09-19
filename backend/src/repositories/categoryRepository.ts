@@ -54,3 +54,7 @@ export const insertCategory = async (category: Omit<Model.Category, "id">): Prom
 
   return { id: result.insertId, ...category };
 };
+
+export const deleteById = async (id: number): Promise<void> => {
+  await pool.query<ResultSetHeader>("DELETE FROM `categories` WHERE `id` = ?", [id]);
+};

@@ -1,6 +1,7 @@
 import { SchemaModel, Schema } from "@app/schema";
 import { TextField, Button, Box, colors, FormControl, InputLabel } from "@mui/material";
 import React from "react";
+import { FormCard } from "~/components/FormCard";
 import { CategoryInput } from "~/templates/top/CategoryInput";
 
 export type FormData = Schema.PostTasks["requestBody"];
@@ -40,7 +41,7 @@ export const Form = ({ categories, onSubmit }: Props) => {
   );
 
   return (
-    <Box sx={{ margin: 3, border: `1px solid ${colors.grey[200]}`, borderRadius: 1, padding: 2 }}>
+    <FormCard>
       <form onSubmit={handleSubmitForm}>
         <CategoryInput categories={categories} value={formData.categoryName} onChange={handleChangeCategory} />
         <FormControl fullWidth sx={{ marginTop: 2 }}>
@@ -60,6 +61,6 @@ export const Form = ({ categories, onSubmit }: Props) => {
           </Button>
         </FormControl>
       </form>
-    </Box>
+    </FormCard>
   );
 };

@@ -3,7 +3,7 @@ import { Model } from "~/@types";
 import { pool } from "~/util/pool";
 
 export const findById = async (id: number): Promise<Model.TaskWithCategory | null> => {
-  const columns = ["c.id as categoryId", "c.name as categoryName", "title", "content", "status"];
+  const columns = ["c.id", "c.name", "t.title", "t.content", "t.status"];
   const [rows] = await pool.query<
     (RowDataPacket & {
       categoryId: number;
@@ -34,7 +34,7 @@ export const findById = async (id: number): Promise<Model.TaskWithCategory | nul
 };
 
 export const whereByCategoryId = async (categoryId: number): Promise<Model.TaskWithCategory[]> => {
-  const columns = ["t.id as id", "c.name as categoryName", "title", "content", "status"];
+  const columns = ["t.id", "c.name", "t.title", "t.content", "t.status"];
   const [rows] = await pool.query<
     (RowDataPacket & {
       id: number;
@@ -61,14 +61,7 @@ export const whereByCategoryId = async (categoryId: number): Promise<Model.TaskW
 };
 
 export const whereByUserId = async (userId: number): Promise<Model.TaskWithCategory[]> => {
-  const columns = [
-    "`t`.`id` as `id`",
-    "`c`.`id` as `categoryId`",
-    "`c`.`name` as `categoryName`",
-    "`t`.`title`",
-    "`t`.`content`",
-    "`t`.`status`",
-  ];
+  const columns = ["t.id", "c.id", "c.name", "t.title", "t.content", "t.status"];
   const [rows] = await pool.query<
     (RowDataPacket & {
       id: number;
@@ -93,6 +86,16 @@ export const whereByUserId = async (userId: number): Promise<Model.TaskWithCateg
     content: task.content,
     status: task.status,
   }));
+};
+
+export const countByCategoryId = async (categoryId: number): Promise<number> => {
+  const [rows] = await pool.query<
+    (RowDataPacket & {
+      idCount: number;
+    })[]
+  >("SELECT COUNT(1) as idCount FROM `tasks` WHERE `tasks`.`categoryId` = ?", [categoryId]);
+
+  return rows[0].idCount;
 };
 
 export const insertTask = async (task: Omit<Model.Task, "id" | "status">): Promise<Model.Task> => {

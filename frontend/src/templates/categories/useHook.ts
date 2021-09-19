@@ -1,7 +1,6 @@
 import { SchemaModel } from "@app/schema";
 import React from "react";
-import { getCategories } from "~/api/v1/categories";
-import { postCategory } from "~/api/v1/categories";
+import { getCategories, postCategory, deleteCategory } from "~/api/v1/categories";
 
 export const useHook = () => {
   const [categories, setCategories] = React.useState<SchemaModel.Category[]>([]);
@@ -15,11 +14,25 @@ export const useHook = () => {
     [categories],
   );
 
+  const removeCategory = React.useCallback(
+    (idx) => {
+      const category = categories[idx];
+      if (category && !window.confirm(`Delete ${category.name}?`)) {
+        return;
+      }
+
+      deleteCategory({ id: String(category.id) }).then((res) => {
+        console.log(res);
+      });
+    },
+    [categories],
+  );
+
   React.useEffect(() => {
     getCategories().then(({ categories }) => {
       setCategories(categories);
     });
   }, []);
 
-  return [{ categories }, { addCategory }] as const;
+  return [{ categories }, { addCategory, removeCategory }] as const;
 };

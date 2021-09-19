@@ -1,6 +1,7 @@
 import { Logout } from "@mui/icons-material";
-import { AppBar, Toolbar, Typography, IconButton, colors } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton, colors, Button } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "~/providers/AuthProvider";
 
 export const DefaultLayout: React.FC = ({ children }) => {
@@ -17,6 +18,12 @@ export const DefaultLayout: React.FC = ({ children }) => {
       <AppBar sx={{ position: "static" }}>
         <Toolbar>
           <Typography sx={{ flexGrow: 1 }}>Todo Application</Typography>
+          <Link to="/categories">
+            <Button color="inherit">categories</Button>
+          </Link>
+          <Link to="/settings">
+            <Button color="inherit">settings</Button>
+          </Link>
           <IconButton onClick={handleClickLogout} sx={{ color: colors.common.white }}>
             <Logout />
           </IconButton>
