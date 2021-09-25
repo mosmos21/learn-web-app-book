@@ -6,7 +6,7 @@ CREATE TABLE `users` (
     `updatedAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3)
 );
 
-DROP TABLE IF EXISTS `accounts`;
+
 CREATE TABLE `accounts` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `userId` int(11) NOT NULL UNIQUE ,
