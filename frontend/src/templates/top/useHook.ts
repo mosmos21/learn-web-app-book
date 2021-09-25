@@ -18,6 +18,13 @@ export const useHook = () => {
     [tasks],
   );
 
+  const handleClickTaskChip = React.useCallback(
+    (id: number, status: SchemaModel.TaskStatus) => {
+      console.log({ id, status });
+    },
+    [tasks],
+  );
+
   React.useEffect(() => {
     getCategories().then(({ categories }) => {
       setCategories(categories);
@@ -26,5 +33,9 @@ export const useHook = () => {
       setTasks(tasks);
     });
   }, []);
-  return [{ categories, tasks }, { addTask }] as const;
+
+  return [
+    { categories, tasks },
+    { addTask, handleClickTaskChip },
+  ] as const;
 };

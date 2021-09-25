@@ -11,12 +11,24 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { StatusChipCell } from "~/templates/top/Table/StatusChipCell";
 
 type Props = {
   tasks: SchemaModel.Task[];
+  onClickTaskChip: (id: number, status: SchemaModel.TaskStatus) => void;
 };
 
-export const Table: React.VFC<Props> = ({ tasks }) => {
+export const Table: React.VFC<Props> = ({ tasks, onClickTaskChip }) => {
+  const handleClickTaskStatus = React.useMemo(
+    () =>
+      tasks.map(
+        ({ id }) =>
+          (status: SchemaModel.TaskStatus) =>
+            onClickTaskChip(id, status),
+      ),
+    [tasks],
+  );
+
   return (
     <TableContainer component={Paper}>
       <BaseTable>
@@ -24,9 +36,10 @@ export const Table: React.VFC<Props> = ({ tasks }) => {
           <TableCell>ID</TableCell>
           <TableCell>Title</TableCell>
           <TableCell>Status</TableCell>
+          <TableCell />
         </TableHead>
         <TableBody>
-          {tasks.map((task) => (
+          {tasks.map((task, idx) => (
             <TableRow key={task.id}>
               <TableCell>{task.id}</TableCell>
               <TableCell>
@@ -35,7 +48,9 @@ export const Table: React.VFC<Props> = ({ tasks }) => {
                 </Link>
               </TableCell>
               <TableCell>{task.title}</TableCell>
-              <TableCell>{task.status}</TableCell>
+              <TableCell>
+                <StatusChipCell currentStatus={task.status} onClickChip={handleClickTaskStatus[idx]} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

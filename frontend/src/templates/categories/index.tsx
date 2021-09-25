@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React from "react";
 import { DefaultLayout } from "~/layouts/DefaultLayout";
 import { Form } from "~/templates/categories/Form";
@@ -10,10 +10,12 @@ export const Template = () => {
 
   return (
     <DefaultLayout>
-      <Form onSubmit={addCategory} />
-      <Box sx={{ margin: 3 }}>
-        <Table categories={categories} onClickDelete={removeCategory} />
-      </Box>
+      <Container maxWidth="lg">
+        <Form onSubmit={addCategory} />
+        <Box sx={{ margin: 3 }}>
+          <Table categories={categories} onClickDelete={removeCategory} />
+        </Box>
+      </Container>
     </DefaultLayout>
   );
 };

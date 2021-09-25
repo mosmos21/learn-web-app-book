@@ -5,12 +5,18 @@ import { serializeUser } from "~/util/serializer";
 
 export const signInRouter = express.Router();
 
-signInRouter.post<Record<string, unknown>, Schema.PostAuthSignIn["response"], Schema.PostAuthSignIn["requestBody"]>(
-  "/auth/sign_in",
-  async (req, res) => {
+signInRouter.post<
+  Record<string, unknown>,
+  Schema.PostAuthSignIn["response"] | {},
+  Schema.PostAuthSignIn["requestBody"]
+>("/auth/sign_in", async (req, res) => {
+  try {
     const result = await loginUser(req.body);
 
     req.session.userId = result.id;
     res.json({ user: serializeUser(result) });
-  },
-);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({});
+  }
+});

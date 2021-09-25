@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS `app_development`;
-CREATE DATABASE `app_development`;
-
-USE `app_development`;
-
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,

@@ -23,6 +23,8 @@
     "@types/express-session": "^1.17.4",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.4.13",
+    "dot-env": "^0.0.1",
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.12",
     "ts-node": "^10.1.0",
     "tsconfig-paths": "^3.10.1",

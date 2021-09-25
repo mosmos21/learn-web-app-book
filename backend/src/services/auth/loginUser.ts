@@ -11,7 +11,7 @@ type Props = {
 export const loginUser = async ({ loginId, password }: Props): Promise<Model.User> => {
   const account = await findByLoginId(loginId);
   if (!account) {
-    throw new Error();
+    throw new Error("account not found");
   }
 
   const equal = await bcrypt.compare(password, account.encryptedPassword);
