@@ -1,5 +1,6 @@
 import { Model } from "~/@types";
 import { existsByIdAndUserId, updateTaskById } from "~/repositories/taskRepository";
+import { ServiceError } from "~/services/errors";
 
 type Props = {
   user: Model.User;
@@ -9,7 +10,7 @@ type Props = {
 
 export const updateTask = async ({ user, taskId, taskAttributes }: Props): Promise<void> => {
   if (!(await existsByIdAndUserId(taskId, user.id))) {
-    throw new Error("task not found");
+    throw new ServiceError("task not found");
   }
 
   await updateTaskById({ id: taskId, ...taskAttributes });

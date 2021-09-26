@@ -2,6 +2,7 @@ import { Model } from "~/@types";
 import { findByUserIdAndName, insertCategory } from "~/repositories/categoryRepository";
 import { insertTask, findById } from "~/repositories/taskRepository";
 import { withTransaction } from "~/util/pool";
+import { InternalServerError } from "~/services/errors";
 
 type Props = {
   user: Model.User;
@@ -18,7 +19,7 @@ export const addTask = async ({ user, title, content, categoryName }: Props): Pr
 
     const task = await findById(id);
     if (!task) {
-      throw new Error();
+      throw new InternalServerError();
     }
 
     return task;

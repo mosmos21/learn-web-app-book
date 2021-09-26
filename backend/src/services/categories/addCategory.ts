@@ -1,5 +1,6 @@
 import { Model } from "~/@types";
 import { existsUserIdAndName, insertCategory } from "~/repositories/categoryRepository";
+import { ServiceError } from "~/services/errors";
 
 type Props = {
   user: Model.User;
@@ -8,7 +9,7 @@ type Props = {
 
 export const addCategory = async ({ user, name }: Props): Promise<Model.Category> => {
   if (await existsUserIdAndName(user.id, name)) {
-    throw new Error();
+    throw new ServiceError("Category exists.");
   }
 
   return await insertCategory({ userId: user.id, name });

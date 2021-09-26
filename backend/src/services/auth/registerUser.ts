@@ -3,6 +3,7 @@ import { Model } from "~/@types";
 import { existsLoginId, insertAccount } from "~/repositories/accountRepository";
 import { insertUser } from "~/repositories/userRepository";
 import { withTransaction } from "~/util/pool";
+import { ServiceError } from "~/services/errors";
 
 type Props = {
   loginId: string;
@@ -12,7 +13,7 @@ type Props = {
 
 export const registerUser = async ({ loginId, name, password }: Props): Promise<Model.User> => {
   if (await existsLoginId(loginId)) {
-    throw new Error();
+    throw new ServiceError("ID exists.");
   }
 
   const encryptedPassword = await bcrypt.hash(password, 10);

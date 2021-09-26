@@ -3,7 +3,6 @@ import { Model } from "~/@types";
 import { pool } from "~/util/pool";
 
 export const findById = async (id: number): Promise<Model.TaskWithCategory | null> => {
-  const columns = ["c.id", "c.name", "t.title", "t.content", "t.status"];
   const [rows] = await pool.query<
     (RowDataPacket & {
       categoryId: number;
@@ -12,10 +11,10 @@ export const findById = async (id: number): Promise<Model.TaskWithCategory | nul
       content: string | null;
       status: Model.TaskStatus;
     })[]
-  >("SELECT ?? FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `t`.`id` = ?", [
-    columns,
-    id,
-  ]);
+  >(
+    "SELECT `c`.`id` as `categoryId`, `c`.`name` as `categoryName`, `t`.`title`, `t`.`content`, `t`.`status` FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `t`.`id` = ?",
+    [id],
+  );
   if (rows.length === 0) {
     return null;
   }
@@ -34,7 +33,6 @@ export const findById = async (id: number): Promise<Model.TaskWithCategory | nul
 };
 
 export const whereByCategoryId = async (categoryId: number): Promise<Model.TaskWithCategory[]> => {
-  const columns = ["t.id", "c.name", "t.title", "t.content", "t.status"];
   const [rows] = await pool.query<
     (RowDataPacket & {
       id: number;
@@ -43,10 +41,10 @@ export const whereByCategoryId = async (categoryId: number): Promise<Model.TaskW
       content: string | null;
       status: Model.TaskStatus;
     })[]
-  >("SELECT ?? FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `c`.`id` = ?", [
-    columns,
-    categoryId,
-  ]);
+  >(
+    "SELECT `t`.`id`, `c`.`name`, `t`.`title`, `t`.`content`, `t`.`status` FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `c`.`id` = ?",
+    [categoryId],
+  );
 
   return rows.map((task) => ({
     id: task.id,
@@ -98,7 +96,11 @@ export const countByCategoryId = async (categoryId: number): Promise<number> => 
 };
 
 export const existsByIdAndUserId = async (id: number, userId: number): Promise<boolean> => {
-  return true;
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT 1 FROM `tasks` `t` JOIN `categories` `c` ON `t`.`categoryId` = `c`.`id` WHERE `t`.`id` = ? AND `c`.`userId` = ? LIMIT 1",
+    [id, userId],
+  );
+  return rows.length === 1;
 };
 
 export const insertTask = async (task: Omit<Model.Task, "id" | "status">): Promise<Model.Task> => {
@@ -110,5 +112,8 @@ export const insertTask = async (task: Omit<Model.Task, "id" | "status">): Promi
 export const updateTaskById = async (task: Pick<Model.Task, "id"> & Partial<Omit<Model.Task, "id">>): Promise<void> => {
   const { id, ...attributes } = task;
 
-  await pool.query<ResultSetHeader>("UPDATE `tasks` SET ? WHERE id = ?", [attributes, id]);
+  await pool.query<ResultSetHeader>("UPDATE `tasks` SET ? WHERE id = ?", [
+    { ...attributes, updatedAt: new Date() },
+    id,
+  ]);
 };
