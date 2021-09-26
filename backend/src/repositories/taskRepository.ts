@@ -97,12 +97,18 @@ export const countByCategoryId = async (categoryId: number): Promise<number> => 
   return rows[0].idCount;
 };
 
+export const existsByIdAndUserId = async (id: number, userId: number): Promise<boolean> => {
+  return true;
+};
+
 export const insertTask = async (task: Omit<Model.Task, "id" | "status">): Promise<Model.Task> => {
   const [result] = await pool.query<ResultSetHeader>("INSERT INTO `tasks` SET ?", task);
 
   return { id: result.insertId, status: "NEW", ...task };
 };
 
-export const updateTaskStatusById = async (id: number, status: Model.TaskStatus): Promise<void> => {
-  await pool.query("UPDATE `tasks` SET `status` = ?, `updatedAt` = ? WHERE `id` = ?", [status, Date(), id]);
+export const updateTaskById = async (task: Pick<Model.Task, "id"> & Partial<Omit<Model.Task, "id">>): Promise<void> => {
+  const { id, ...attributes } = task;
+
+  await pool.query<ResultSetHeader>("UPDATE `tasks` SET ? WHERE id = ?", [attributes, id]);
 };

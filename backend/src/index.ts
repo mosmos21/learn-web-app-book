@@ -12,9 +12,10 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET || "session_secret",
     name: "_app",
+    resave: false,
+    saveUninitialized: true,
   }),
 );
-
 app.use("/api/v1", router);
 
 const port = Number(process.env.PORT || 3001);

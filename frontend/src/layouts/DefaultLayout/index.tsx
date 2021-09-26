@@ -18,6 +18,9 @@ export const DefaultLayout: React.FC = ({ children }) => {
       <AppBar sx={{ position: "static" }}>
         <Toolbar>
           <Typography sx={{ flexGrow: 1 }}>Todo Application</Typography>
+          <Link to="/">
+            <Button color="inherit">top</Button>
+          </Link>
           <Link to="/categories">
             <Button color="inherit">categories</Button>
           </Link>

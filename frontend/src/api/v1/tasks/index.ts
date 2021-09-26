@@ -9,3 +9,9 @@ export const postTask = (body: Schema.PostTasks["requestBody"]) =>
     method: "POST",
     body: JSON.stringify(body),
   });
+
+export const patchTask = (id: number, body: Schema.PatchTask["requestBody"]) =>
+  fetcher<Schema.PatchTask["response"]>()(`/api/v1/tasks/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(body),
+  });

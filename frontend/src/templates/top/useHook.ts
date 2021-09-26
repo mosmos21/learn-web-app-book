@@ -1,8 +1,7 @@
 import { SchemaModel } from "@app/schema";
 import React from "react";
 import { getCategories } from "~/api/v1/categories";
-import { getTasks } from "~/api/v1/tasks";
-import { postTask } from "~/api/v1/tasks";
+import { getTasks, postTask, patchTask } from "~/api/v1/tasks";
 import { FormData } from "~/templates/top/Form";
 
 export const useHook = () => {
@@ -19,19 +18,28 @@ export const useHook = () => {
   );
 
   const handleClickTaskChip = React.useCallback(
-    (id: number, status: SchemaModel.TaskStatus) => {
-      console.log({ id, status });
+    async (id: number, status: SchemaModel.TaskStatus) => {
+      await patchTask(id, { task: { status } });
+      await fetchTasks();
     },
     [tasks],
   );
 
+  const fetchCategories = React.useCallback(async () => {
+    const { categories } = await getCategories();
+    setCategories(categories);
+  }, [getCategories]);
+
+  const fetchTasks = React.useCallback(async () => {
+    const { tasks } = await getTasks();
+    setTasks(tasks);
+  }, [getTasks]);
+
   React.useEffect(() => {
-    getCategories().then(({ categories }) => {
-      setCategories(categories);
-    });
-    getTasks().then(({ tasks }) => {
-      setTasks(tasks);
-    });
+    (async () => {
+      await fetchCategories();
+      await fetchTasks();
+    })();
   }, []);
 
   return [

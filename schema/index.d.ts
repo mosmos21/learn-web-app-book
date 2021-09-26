@@ -24,6 +24,8 @@ export namespace SchemaModel {
 }
 
 export namespace Schema {
+  import TaskStatus = SchemaModel.TaskStatus;
+  import Task = SchemaModel.Task;
   type ErrorResponse = {
     message: string;
   };
@@ -75,6 +77,14 @@ export namespace Schema {
     response: {
       task: SchemaModel.Task;
     };
+  };
+
+  // PATCH /api/v1/tasks/:id
+  type PatchTask = {
+    requestBody: {
+      task: Partial<Omit<Task, "id">>;
+    };
+    response: Record<string, never>;
   };
 
   // GET /api/v1/auth/me

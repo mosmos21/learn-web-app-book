@@ -1,6 +1,7 @@
-import { TextField, Button, Box, colors } from "@mui/material";
+import { TextField, Button, Box, colors, Typography } from "@mui/material";
 import React from "react";
 import { SignInProps } from "~/providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 export type FormData = SignInProps;
 
@@ -64,6 +65,13 @@ export const SignInForm = ({ onSubmit }: Props) => {
         <Button type="submit" fullWidth variant="contained" color="primary">
           Sign In
         </Button>
+        <Box sx={{ textAlign: "center", marginTop: 2 }}>
+          <Link to="/auth/sign_up">
+            <Button color="inherit">
+              <Typography sx={{ textDecoration: "underline", color: colors.grey[500] }}>Sign Up</Typography>
+            </Button>
+          </Link>
+        </Box>
       </form>
     </Box>
   );
