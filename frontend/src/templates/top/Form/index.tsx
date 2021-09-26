@@ -1,5 +1,5 @@
 import { SchemaModel, Schema } from "@app/schema";
-import { TextField, Button, Box, colors, FormControl, InputLabel } from "@mui/material";
+import { TextField, Button, FormControl, InputLabel } from "@mui/material";
 import React from "react";
 import { FormCard } from "~/components/FormCard";
 import { CategoryInput } from "~/templates/top/CategoryInput";

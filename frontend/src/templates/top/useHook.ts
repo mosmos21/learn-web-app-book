@@ -4,7 +4,11 @@ import { getCategories } from "~/api/v1/categories";
 import { getTasks, postTask, patchTask } from "~/api/v1/tasks";
 import { FormData } from "~/templates/top/Form";
 
-export const useHook = () => {
+type Props = {
+  categoryId?: number;
+};
+
+export const useHook = ({ categoryId }: Props) => {
   const [categories, setCategories] = React.useState<SchemaModel.Category[]>([]);
   const [tasks, setTasks] = React.useState<SchemaModel.Task[]>([]);
 
@@ -31,9 +35,9 @@ export const useHook = () => {
   }, [getCategories]);
 
   const fetchTasks = React.useCallback(async () => {
-    const { tasks } = await getTasks();
+    const { tasks } = await getTasks(categoryId);
     setTasks(tasks);
-  }, [getTasks]);
+  }, [getTasks, categoryId]);
 
   React.useEffect(() => {
     (async () => {

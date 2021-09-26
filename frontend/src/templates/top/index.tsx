@@ -5,8 +5,12 @@ import { useHook } from "~/templates/top/useHook";
 import { Table } from "~/templates/top/Table";
 import { Box, Container } from "@mui/material";
 
-export const Template = () => {
-  const [{ categories, tasks }, { addTask, handleClickTaskChip }] = useHook();
+type Props = {
+  categoryId?: number;
+};
+
+export const Template: React.VFC<Props> = (props) => {
+  const [{ categories, tasks }, { addTask, handleClickTaskChip }] = useHook(props);
 
   return (
     <DefaultLayout>

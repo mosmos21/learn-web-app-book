@@ -1,7 +1,8 @@
 import { useLocation } from "react-router-dom";
+import qs from "qs";
 
-export const useQuery = () => {
+export const useQuery = <T>() => {
   const { search } = useLocation();
 
-  return new URLSearchParams(search);
+  return qs.parse(search.slice(1)) as unknown as T;
 };

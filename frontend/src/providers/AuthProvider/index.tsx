@@ -121,6 +121,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   if (hookValue.isLoading) {
     return <div>loading...</div>;
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { isLoading, ...contextValue } = hookValue;
 
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

@@ -33,10 +33,13 @@ export const Table: React.VFC<Props> = ({ tasks, onClickTaskChip }) => {
     <TableContainer component={Paper}>
       <BaseTable>
         <TableHead>
-          <TableCell>ID</TableCell>
-          <TableCell>Title</TableCell>
-          <TableCell>Status</TableCell>
-          <TableCell />
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell>Title</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell />
+          </TableRow>
         </TableHead>
         <TableBody>
           {tasks.map((task, idx) => (
