@@ -2,19 +2,26 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { FormData } from "~/containers/SignInForm";
 import { useAuthContext } from "~/providers/AuthProvider";
+import { getErrorMessage } from "~/utils/getErrorMessage";
+import { useSnackbarContext } from "~/providers/SnackbarProvider";
 
 export const useHook = () => {
   const history = useHistory();
   const authContext = useAuthContext();
+  const { showSnackbar } = useSnackbarContext();
 
   const handleSubmitForm = React.useCallback(
-    (data: FormData) => {
-      if (authContext.isSignedIn) return;
+    async (data: FormData) => {
+      try {
+        if (authContext.isSignedIn) return;
 
-      const { signIn } = authContext;
-      signIn(data).then(() => {
+        await authContext.signIn(data);
         history.push("/");
-      });
+      } catch (err) {
+        if (err instanceof Response && err.status === 401) {
+          showSnackbar(await getErrorMessage(err), "error");
+        }
+      }
     },
     [authContext, history],
   );

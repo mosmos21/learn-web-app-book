@@ -24,9 +24,9 @@ export const useHook = ({ categoryId }: Props) => {
   const handleClickTaskChip = React.useCallback(
     async (id: number, status: SchemaModel.TaskStatus) => {
       await patchTask(id, { task: { status } });
-      await fetchTasks();
+      await fetchTasks(categoryId);
     },
-    [tasks],
+    [tasks, categoryId],
   );
 
   const fetchCategories = React.useCallback(async () => {
@@ -34,17 +34,25 @@ export const useHook = ({ categoryId }: Props) => {
     setCategories(categories);
   }, [getCategories]);
 
-  const fetchTasks = React.useCallback(async () => {
-    const { tasks } = await getTasks(categoryId);
-    setTasks(tasks);
-  }, [getTasks, categoryId]);
+  const fetchTasks = React.useCallback(
+    async (categoryId) => {
+      const { tasks } = await getTasks(categoryId);
+      setTasks(tasks);
+    },
+    [getTasks],
+  );
 
   React.useEffect(() => {
     (async () => {
       await fetchCategories();
-      await fetchTasks();
     })();
   }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      await fetchTasks(categoryId);
+    })();
+  }, [categoryId]);
 
   return [
     { categories, tasks },

@@ -42,7 +42,7 @@ export const whereByCategoryId = async (categoryId: number): Promise<Model.TaskW
       status: Model.TaskStatus;
     })[]
   >(
-    "SELECT `t`.`id`, `c`.`name`, `t`.`title`, `t`.`content`, `t`.`status` FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `c`.`id` = ?",
+    "SELECT `t`.`id` as id, `c`.`name` as categoryName, `t`.`title` as title, `t`.`content` as content, `t`.`status` FROM `tasks` `t` JOIN `categories` `c` on `t`.`categoryId` = `c`.`id` WHERE `c`.`id` = ?",
     [categoryId],
   );
 
