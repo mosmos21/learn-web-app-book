@@ -1,11 +1,9 @@
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `name` varchar(255) NOT NULL,
     `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3)
 );
-
 
 CREATE TABLE `accounts` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -18,7 +16,6 @@ CREATE TABLE `accounts` (
     FOREIGN KEY `foreign_key_on_user_id` (`userId`) REFERENCES `users` (`id`)
 );
 
-DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userId` int(11) NOT NULL,
@@ -29,7 +26,6 @@ CREATE TABLE `categories` (
     UNIQUE KEY `unique_on_userId_and_name` (`userId`, `name`)
 );
 
-DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `categoryId` int(11) NOT NULL,

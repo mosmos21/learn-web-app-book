@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { SignInPage } from "~/pages/auth/signIn";
@@ -9,7 +9,7 @@ import { SettingsPage } from "~/pages/settings";
 
 type RouteDef = {
   path: string;
-  Component: ComponentType;
+  Component: React.ComponentType;
 };
 
 const routes: RouteDef[] = [

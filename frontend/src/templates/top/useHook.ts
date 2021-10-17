@@ -13,10 +13,10 @@ export const useHook = ({ categoryId }: Props) => {
   const [tasks, setTasks] = React.useState<SchemaModel.Task[]>([]);
 
   const addTask = React.useCallback(
-    (formData: FormData) => {
-      postTask(formData).then(({ task }) => {
-        setTasks([...tasks, task]);
-      });
+    async (formData: FormData) => {
+      const { task } = await postTask(formData);
+
+      setTasks([...tasks, task]);
     },
     [tasks],
   );

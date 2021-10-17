@@ -24,8 +24,6 @@ export namespace SchemaModel {
 }
 
 export namespace Schema {
-  import TaskStatus = SchemaModel.TaskStatus;
-  import Task = SchemaModel.Task;
   type ErrorResponse = {
     message: string;
   };
@@ -82,7 +80,7 @@ export namespace Schema {
   // PATCH /api/v1/tasks/:id
   type PatchTask = {
     requestBody: {
-      task: Partial<Omit<Task, "id">>;
+      task: Partial<Omit<SchemaModel.Task, "id">>;
     };
     response: Record<string, never>;
   };
@@ -111,6 +109,21 @@ export namespace Schema {
     requestBody: {
       loginId: string;
       password: string;
+    };
+    response: {
+      user: SchemaModel.User;
+    };
+  };
+
+  type GetSettings = {
+    response: {
+      user: SchemaModel.User;
+    };
+  };
+
+  type PatchSettings = {
+    requestBody: {
+      user: SchemaModel.User & { password: string };
     };
     response: {
       user: SchemaModel.User;

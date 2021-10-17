@@ -6,32 +6,31 @@ export const useHook = () => {
   const [categories, setCategories] = React.useState<SchemaModel.CategoryWithCount[]>([]);
 
   const addCategory = React.useCallback(
-    (name: string) => {
-      postCategory({ name }).then(({ category }) => {
-        setCategories([...categories, { ...category, taskCount: 0 }]);
-      });
+    async (name: string) => {
+      const { category } = await postCategory({ name });
+
+      setCategories([...categories, { ...category, taskCount: 0 }]);
     },
     [categories],
   );
 
   const removeCategory = React.useCallback(
-    (idx) => {
+    async (idx) => {
       const category = categories[idx];
       if (category && !window.confirm(`Delete ${category.name}?`)) {
         return;
       }
 
-      deleteCategory({ id: String(category.id) }).then((res) => {
-        console.log(res);
-      });
+      await deleteCategory({ id: String(category.id) });
     },
     [categories],
   );
 
   React.useEffect(() => {
-    getCategories().then(({ categories }) => {
+    (async () => {
+      const { categories } = await getCategories();
       setCategories(categories);
-    });
+    })();
   }, []);
 
   return [{ categories }, { addCategory, removeCategory }] as const;

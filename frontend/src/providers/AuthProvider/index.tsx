@@ -46,56 +46,52 @@ const AuthContext = React.createContext<Context>(defaultContext);
 const useHook = (): { isLoading: true } | ({ isLoading: false } & Context) => {
   const [state, setState] = React.useState<State>({ isLoading: true });
 
-  const signIn = React.useCallback(
-    (props: SignInProps) =>
-      postSignIn(props).then(({ user: currentUser }) => {
-        setState({
-          isLoading: false,
-          isSignedIn: true,
-          currentUser,
-        });
-      }),
-    [],
-  );
+  const signIn = React.useCallback(async (props: SignInProps) => {
+    const { user: currentUser } = await postSignIn(props);
 
-  const signUp = React.useCallback(
-    (props: SignUpProps) =>
-      postSignUp(props).then(({ user: currentUser }) => {
-        setState({
-          isLoading: false,
-          isSignedIn: true,
-          currentUser,
-        });
-      }),
-    [],
-  );
+    setState({
+      isLoading: false,
+      isSignedIn: true,
+      currentUser,
+    });
+  }, []);
 
-  const signOut = React.useCallback(
-    () =>
-      deleteSignOut().then(() => {
-        setState({
-          isLoading: false,
-          isSignedIn: false,
-        });
-      }),
-    [],
-  );
+  const signUp = React.useCallback(async (props: SignUpProps) => {
+    const { user: currentUser } = await postSignUp(props);
+
+    setState({
+      isLoading: false,
+      isSignedIn: true,
+      currentUser,
+    });
+  }, []);
+
+  const signOut = React.useCallback(async () => {
+    await deleteSignOut();
+
+    setState({
+      isLoading: false,
+      isSignedIn: false,
+    });
+  }, []);
 
   React.useEffect(() => {
-    getAuthMe()
-      .then(({ user: currentUser }) => {
+    (async () => {
+      try {
+        const { user: currentUser } = await getAuthMe();
+
         setState({
           isLoading: false,
           isSignedIn: true,
           currentUser,
         });
-      })
-      .catch(() => {
+      } catch {
         setState({
           isLoading: false,
           isSignedIn: false,
         });
-      });
+      }
+    })();
   }, []);
 
   if (state.isLoading) return { isLoading: true };
