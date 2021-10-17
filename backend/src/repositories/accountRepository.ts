@@ -29,3 +29,9 @@ export const insertAccount = async (account: Omit<Model.Account, "id">): Promise
 
   return { id: result.insertId, ...account };
 };
+
+export const updateByUserId = async (account: Pick<Model.Account, "userId" | "encryptedPassword">): Promise<void> => {
+  const { userId, ...params } = account;
+
+  await pool.query("UPDATE `accounts` SET ? WHERE `userId` = ?", [params, userId]);
+};

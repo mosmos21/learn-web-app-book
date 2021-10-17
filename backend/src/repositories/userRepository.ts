@@ -21,3 +21,9 @@ export const insertUser = async (user: Omit<Model.User, "id">): Promise<Model.Us
 
   return { id: result.insertId, ...user };
 };
+
+export const updateById = async (user: Pick<Model.User, "id" | "name">): Promise<void> => {
+  const { id, ...params } = user;
+
+  await pool.query("UPDATE `users` SET ? WHERE `id` = ?", [params, id]);
+};
