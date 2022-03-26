@@ -48,7 +48,7 @@ TODO
 - 設定ページ
     - 名前を設定・変更することができる
 
-### DB設計
+## DB設計
 
 - ユーザーの以下仕様を満たすテーブルを設計する
     - 名前を設定できる
@@ -99,3 +99,9 @@ TODO
 | updatedAt  | datetime(3)                       | not null, default current_timestamp(3) | レコードが更新された時間 |
 
 ※ categoryIdには外部キー制約が必要
+
+### coding
+
+- 上のテーブル設計を下にテーブルを作るSQLを書く
+  - sql/initialize.sqlに書く
+  - 書き終わったら、 `docker-compose up -d ` → `make db_reset` を実行して、開発用のテーブルを作ります
